@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import DropDown from "./bits/DropDown";
 
 const Invoices = () => {
-  const [dropDown, isOpenDd] = useState(false);
+  const [isOpenDd, setDd] = useState(false);
   return (
     <div
       className="flex flex-col border-1 w-full m-auto mt-7 lg:w-[60%] lg:place-items-center lg:p-12 gap-10 p-3 
@@ -19,12 +19,19 @@ const Invoices = () => {
           <div className="flex relative">
             <h6
               className="text-sm flex gap-4 justify-center place-items-center cursor-pointer"
-              onClick={() => isOpenDd((current) => !current)}
+              onClick={() => setDd((current) => !current)}
             >
               filter by status
-              <img src={downIcon} alt="" className="self-center" />
+              <motion.div
+                animate={{
+                  rotate: isOpenDd ? 180 : 0,
+                }}
+                transition={{ duration: 0.3 }}
+              >
+                <img src={downIcon} alt="" className="self-center rotate-180" />
+              </motion.div>
             </h6>
-            {dropDown ? <DropDown /> : ""}
+            {isOpenDd ? <DropDown /> : ""}
           </div>
           <PlusButton />
         </div>
