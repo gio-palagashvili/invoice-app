@@ -16,14 +16,16 @@ const Invoices = () => {
       <div className="flex w-full">
         <Header />
         <div className="rigth capitalize ml-auto flex justify-center place-items-center gap-10">
-          <h6
-            className="text-sm flex gap-4 justify-center place-items-center cursor-pointer"
-            onClick={() => isOpenDd((current) => !current)}
-          >
-            filter by status
-            <img src={downIcon} alt="" className="self-center" />
+          <div className="flex relative">
+            <h6
+              className="text-sm flex gap-4 justify-center place-items-center cursor-pointer"
+              onClick={() => isOpenDd((current) => !current)}
+            >
+              filter by status
+              <img src={downIcon} alt="" className="self-center" />
+            </h6>
             {dropDown ? <DropDown /> : ""}
-          </h6>
+          </div>
           <PlusButton />
         </div>
       </div>
