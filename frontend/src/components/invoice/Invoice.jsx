@@ -4,7 +4,10 @@ import rightArrow from "../../assets/right_arrow.svg";
 
 const Invoice = (props) => {
   return (
-    <div className="invoice w-full flex bg-[#1F2139] h-20 rounded-lg cursor-pointer p-5">
+    <div
+      className="invoice w-full flex bg-[#1F2139] h-20 rounded-lg cursor-pointer p-3 hover:border-[#7C5DF9]
+     border-transparent border-[1px] transition-all duration-500 ease-in-out"
+    >
       <div className="l flex w-full">
         <div className="flex gap-5 w-full">
           <div className="flex place-items-center">
@@ -15,7 +18,7 @@ const Invoice = (props) => {
           </div>
           <div className="flex justify-center place-items-center gap-10">
             <p className="text-sm font-[200]">{props.due}</p>
-            <p className="capitalize font-[500]">{props.name}</p>
+            <p className="capitalize font-[200]">{props.name}</p>
           </div>
         </div>
       </div>
