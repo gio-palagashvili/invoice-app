@@ -2,7 +2,7 @@ import React from "react";
 
 const Nav = (props) => {
   return (
-    <div className="bg-[#1F2139] w-full h-[5rem] rounded-tr-xl flex lg:w-[6rem] lg:h-[100vh] lg:flex-col lg:rounded-br-3xl lg:rounded-tr-3xl">
+    <div className="bg-[#1F2139] w-full h-[5rem] rounded-tr-xl flex lg:w-[6rem] lg:h-[100vh] lg:flex-col lg:rounded-br-3xl lg:rounded-tr-3xl fixed">
       <div className="logo bg-[#7C5DFA] h-full rounded-tr-3xl rounded-br-3xl flex justify-center w-[80px] lg:flex-col lg:w-full lg:h-[90px]">
         <img
           src="https://invoice-app-giraffe.vercel.app/images/logo.svg"

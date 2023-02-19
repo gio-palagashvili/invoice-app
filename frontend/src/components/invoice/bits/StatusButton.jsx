@@ -11,7 +11,7 @@ const StatusButton = (props) => {
       );
     case "paid":
       return (
-        <button className="bg-[#33d6a01e] p-3 custom text-sm flex justify-center place-items-center gap-2 text-[#33D69F] font-[500]">
+        <button className="bg-[#29b4861e] p-3 custom text-sm flex justify-center place-items-center gap-2 text-[#33D69F] font-[500]">
           <span className="h-[0.45rem] w-[0.45rem] rounded-full bg-[#33D69F]"></span>
           Paid
         </button>
