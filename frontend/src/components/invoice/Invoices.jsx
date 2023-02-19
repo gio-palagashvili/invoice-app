@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Header from "./bits/Header";
 import PlusButton from "./bits/PlusButton";
 import Invoice from "./Invoice";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import FilterButton from "./bits/FilterButton";
+import { AppContext } from "../context/AppContext";
 
 const Invoices = () => {
+  const { invoices, setInvoices } = useContext(AppContext);
+
   return (
     <div
       className="flex flex-col border-1 w-full m-auto mt-7 lg:w-[60%] lg:place-items-center lg:p-12 gap-10 p-3 
@@ -22,7 +25,7 @@ const Invoices = () => {
         </div>
       </div>
       <div className="invoices w-full flex flex-col gap-3 overflow-scroll h-[70vh]">
-        {[-1, 1, 3, 4, 0, 1, 0, 1, 1, 0, 1, 1].map((invoice, index) => {
+        {invoices.map((invoice, index) => {
           return (
             <motion.div
               initial={{ y: "50%" }}
@@ -36,13 +39,13 @@ const Invoices = () => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
               >
-                <Link to={"invoice/RTX308"}>
+                <Link to={"invoice/RTX3080"}>
                   <Invoice
-                    id="RTX308"
-                    due="19 Mar 2023"
-                    name="alex grim"
-                    amount="3"
-                    status={invoice > 0 ? "pending" : "paid"}
+                    id={invoice.id}
+                    due={invoice.due}
+                    name={invoice.clientName}
+                    amount={invoice.total}
+                    status={invoice.status}
                   />
                 </Link>
               </motion.div>

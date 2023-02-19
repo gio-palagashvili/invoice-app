@@ -1,11 +1,9 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { useParams } from "react-router-dom";
 import Nav from "../components/nav/Nav";
 import InvoiceDetail from "../components/invoice/bits/InvoiceDetail";
 
 const Invoice = () => {
-  const { id } = useParams();
   return (
     <motion.div
       initial={{ opacity: 0 }}

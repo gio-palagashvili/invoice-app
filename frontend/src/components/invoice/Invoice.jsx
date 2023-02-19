@@ -17,7 +17,7 @@ const Invoice = (props) => {
             </p>
           </div>
           <div className="flex justify-center place-items-center gap-10">
-            <p className="text-sm font-[200]">{props.due}</p>
+            <p className="text-sm font-[200]">Due {props.due}</p>
             <p className="capitalize font-[200]">{props.name}</p>
           </div>
         </div>

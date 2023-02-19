@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Nav from "../components/nav/Nav";
 import { motion } from "framer-motion";
 import Invoices from "../components/invoice/Invoices";
