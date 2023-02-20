@@ -8,49 +8,59 @@ import FilterButton from "./bits/FilterButton";
 import { AppContext } from "../context/AppContext";
 
 const Invoices = () => {
-  const { invoices, setInvoices } = useContext(AppContext);
+  const { invoices } = useContext(AppContext);
+  const [filter, setFilter] = useState("");
 
+  const handleClick = (name) => {
+    if (filter == name) {
+      setFilter("");
+    } else {
+      setFilter(name);
+    }
+  };
   return (
     <div
-      className="flex flex-col border-1 w-full m-auto mt-7 lg:w-[60%] lg:place-items-center lg:p-12 gap-10 p-3 
+      className="flex flex-col border-1 w-full m-auto lg:w-[60%] lg:place-items-center lg:p-12 gap-10 p-3 lg:mt-10 mt-28
     md:w-[80%] lg:min-w-[800px]"
     >
       <div className="flex w-full">
         <Header />
-        <div className="rigth capitalize ml-auto flex justify-center place-items-center gap-10">
+        <div className="rigth ucapitalize ml-auto flex justify-center place-items-center gap-10">
           <div className="flex relative">
-            <FilterButton />
+            <FilterButton clicked={handleClick} />
           </div>
           <PlusButton />
         </div>
       </div>
       <div className="invoices w-full flex flex-col gap-3 overflow-scroll h-[70vh]">
         {invoices.map((invoice, index) => {
-          return (
-            <motion.div
-              initial={{ y: "50%" }}
-              key={index}
-              animate={{ y: 0 }}
-              transition={{ duration: 0.5 + index / 2 }}
-            >
+          if (invoice.status === filter || filter.length == 0) {
+            return (
               <motion.div
-                initial={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
+                initial={{ y: "50%" }}
+                key={index}
+                animate={{ y: 0 }}
+                transition={{ duration: 0.5 + index / 2 }}
               >
-                <Link to={"invoice/RTX3080"}>
-                  <Invoice
-                    id={invoice.id}
-                    due={invoice.due}
-                    name={invoice.clientName}
-                    amount={invoice.total}
-                    status={invoice.status}
-                  />
-                </Link>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                >
+                  <Link to={"invoice/RTX3080"}>
+                    <Invoice
+                      id={invoice.id}
+                      due={invoice.due}
+                      name={invoice.clientName}
+                      amount={invoice.total}
+                      status={invoice.status}
+                    />
+                  </Link>
+                </motion.div>
               </motion.div>
-            </motion.div>
-          );
+            );
+          }
         })}
       </div>
     </div>

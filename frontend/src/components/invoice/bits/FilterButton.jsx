@@ -22,7 +22,7 @@ const FilterButton = (props) => {
           <img src={downIcon} alt="" className="self-center rotate-180" />
         </motion.div>
       </h6>
-      {isOpenDd ? <DropDown /> : ""}
+      {isOpenDd ? <DropDown clicked={props.clicked} /> : ""}
     </>
   );
 };
