@@ -11,6 +11,15 @@
   font-family: 'League Spartan';
 }
 
+input {
+  outline: none;
+}
+
+select {
+  /* appearance: none; */
+  outline: none;
+}
+
 .logo img::after {
   content: "";
   position: absolute;

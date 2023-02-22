@@ -2,7 +2,7 @@ import React from "react";
 
 const DropDown = (props) => {
   return (
-    <div className="w-44 h-[125px] bg-[#1F2139] absolute z-10 drop-shadow-2xl rounded-lg p-5 content">
+    <div className="w-44 h-[125px] bg-[#1F2139] absolute z-[9] drop-shadow-2xl rounded-lg p-5 content">
       <div>
         <ul className="capitalize flex flex-col">
           <button

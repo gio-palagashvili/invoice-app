@@ -1,5 +1,5 @@
 import React from "react";
-import StatusButton from "./bits/StatusButton";
+import StatusButton from "./bits/buttons/StatusButton";
 import rightArrow from "../../assets/right_arrow.svg";
 
 const Invoice = (props) => {

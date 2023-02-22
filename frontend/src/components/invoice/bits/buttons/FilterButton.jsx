@@ -1,13 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import downIcon from "../../../assets/down_arrow.svg";
-import DropDown from "./DropDown";
+import downIcon from "../../../../assets/down_arrow.svg";
+import DropDown from "../DropDown";
 
 const FilterButton = (props) => {
   const [isOpenDd, setDd] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (ref.current && !ref.current.contains(event.target)) {
+        setDd(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [ref]);
 
   return (
-    <>
+    <div ref={ref}>
       <h6
         className="text-sm flex gap-4 justify-center place-items-center cursor-pointer"
         onClick={() => setDd((current) => !current)}
@@ -23,7 +38,7 @@ const FilterButton = (props) => {
         </motion.div>
       </h6>
       {isOpenDd ? <DropDown clicked={props.clicked} /> : ""}
-    </>
+    </div>
   );
 };
 

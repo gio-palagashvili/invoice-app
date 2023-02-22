@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import arrow from "../../../assets/down_arrow.svg";
 import Address from "./Address";
-import Buttons from "./Buttons";
-import StatusButton from "./StatusButton";
+import DuoButtons from "./buttons/DuoButtons";
+import StatusButton from "./buttons/StatusButton";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import Table from "./Table";
 import { AppContext } from "../../context/AppContext";
@@ -42,7 +42,7 @@ const InvoiceDetail = (props) => {
                 <h1 className="text-sm font-[200] text-gray-200">Status</h1>
                 <StatusButton status={curr.status} />
               </div>
-              <Buttons />
+              <DuoButtons />
             </div>
             <div className="bg-[#1F2139] p-7 flex rounded-lg flex-col gap-5">
               <div className="addresss flex flex-col gap-5 md:flex-row">
