@@ -39,7 +39,7 @@ const InvoiceDetail = (props) => {
             </h1>
           </Link>
           <div className="flex flex-col gap-3">
-            <div className="bg-[#1F2139] w-full p-5 flex rounded-lg justify-between">
+            <div className="bg-[#1F2139] w-full p-5 flex rounded-lg gap-5">
               <div className="flex place-items-center md:w-1/4 gap-5">
                 <h1 className="text-sm font-[200] text-gray-200">Status</h1>
                 <StatusButton status={curr.status} />
