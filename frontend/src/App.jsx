@@ -17,13 +17,30 @@ const App = () => {
       clientEmail: "girgi1201@gnail.com",
       date: "Feb 14, 2023",
       due: "mar 14,2023",
-      status: "paid",
+      status: "pending",
       itemList: [{ itemName: "thing", qty: 2, price: 2 }],
       total: 4,
     },
   ]);
+
+  const setInvoiceStatus = (id, status) => {
+    let invoice = invoices.find((invoice) => invoice.id === id);
+    invoice.status = status;
+    setInvoices([...invoices, invoice]);
+  };
+  const removeInvoice = (id) => {
+    let newArr = invoices;
+    newArr.splice(
+      invoices.findIndex((invoice) => invoice.id == id),
+      1
+    );
+    setInvoices(newArr);
+  };
+
   return (
-    <AppContext.Provider value={{ invoices, setInvoices }}>
+    <AppContext.Provider
+      value={{ invoices, setInvoices, setInvoiceStatus, removeInvoice }}
+    >
       <Router>
         <Routes>
           <Route path="/invoice/:id" element={<Invoice />} />

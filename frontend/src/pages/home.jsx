@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import Nav from "../components/nav/Nav";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Invoices from "../components/invoice/Invoices";
 
 const Home = () => {

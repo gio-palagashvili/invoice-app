@@ -9,7 +9,8 @@ import { AppContext } from "../../context/AppContext";
 import { motion } from "framer-motion";
 
 const InvoiceDetail = (props) => {
-  const { invoices, setInvoices } = useContext(AppContext);
+  const { invoices, setInvoices, setInvoiceStatus, removeInvoice } =
+    useContext(AppContext);
   const [curr, setCurr] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
@@ -22,11 +23,12 @@ const InvoiceDetail = (props) => {
       navigate("../");
     }
   }, []);
+
   return (
     <motion.div
-      initial={{ x: "-50%" }}
-      animate={{ x: "0" }}
-      transition={{ duration: 1 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1.1 }}
     >
       <div className="p-3 flex w-full place-items-center justify-center md:place-items-baseline md:mt-16 mt-20">
         <div className="w-[95%] mt-5 flex flex-col gap-10 md:w-[40rem]">
@@ -42,7 +44,11 @@ const InvoiceDetail = (props) => {
                 <h1 className="text-sm font-[200] text-gray-200">Status</h1>
                 <StatusButton status={curr.status} />
               </div>
-              <DuoButtons />
+              <DuoButtons
+                status={curr.status}
+                paid={() => setInvoiceStatus(curr.id, "paid")}
+                remove={() => removeInvoice(curr.id)}
+              />
             </div>
             <div className="bg-[#1F2139] p-7 flex rounded-lg flex-col gap-5">
               <div className="addresss flex flex-col gap-5 md:flex-row">
