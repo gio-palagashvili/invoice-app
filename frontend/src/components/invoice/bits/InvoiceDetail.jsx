@@ -23,7 +23,6 @@ const InvoiceDetail = (props) => {
       navigate("../");
     }
   }, []);
-
   return (
     <motion.div
       initial={{ opacity: 0 }}

@@ -72,7 +72,7 @@ const Invoices = () => {
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                   >
-                    <Link to={"invoice/RTX3080"}>
+                    <Link to={`invoice/${invoice.id}`}>
                       <Invoice
                         id={invoice.id}
                         due={invoice.due}

@@ -16,18 +16,39 @@ const App = () => {
       clientName: "Alex grim",
       clientEmail: "girgi1201@gnail.com",
       date: "Feb 14, 2023",
-      due: "mar 14,2023",
-      status: "pending",
+      due: "mar 14, 2023",
+      status: "paid",
       itemList: [{ itemName: "thing", qty: 2, price: 2 }],
       total: 4,
+    },
+    {
+      id: "ZTX2090",
+      billingAddress: "8 McCullough Dr, U126363",
+      city: "New Castle",
+      postCode: "19726",
+      country: "United States",
+      description: "asl",
+      clientName: "light yagami",
+      clientEmail: "girgi1201@gnail.com",
+      date: "Feb 14, 2023",
+      due: "mar 14, 2023",
+      status: "pending",
+      itemList: [{ itemName: "lol", qty: 1, price: 2 }],
+      total: 2,
     },
   ]);
 
   const setInvoiceStatus = (id, status) => {
-    let invoice = invoices.find((invoice) => invoice.id === id);
-    invoice.status = status;
-    setInvoices([...invoices, invoice]);
+    let invoicesTemp = invoices;
+    invoicesTemp = invoicesTemp.map((invoice) => {
+      if (invoice.id == id) {
+        invoice.status = status;
+      }
+      return invoice;
+    });
+    setInvoices(invoicesTemp);
   };
+
   const removeInvoice = (id) => {
     let newArr = invoices;
     newArr.splice(
