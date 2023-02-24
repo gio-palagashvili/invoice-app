@@ -11,6 +11,8 @@ import AddInvoice from "./AddInvoice";
 const Invoices = () => {
   const { invoices } = useContext(AppContext);
   const [filter, setFilter] = useState("");
+  const [invoiceOpen, setInvoiceOpen] = useState(false);
+  const ref = useRef(null);
 
   const handleClick = (name) => {
     if (filter == name) {
@@ -20,9 +22,27 @@ const Invoices = () => {
     }
   };
 
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (ref.current && !ref.current.contains(event.target)) {
+        setInvoiceOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [ref]);
+
   return (
     <>
-      <AddInvoice />
+      <AddInvoice
+        discard={() => setInvoiceOpen(false)}
+        item={invoiceOpen}
+        refr={ref}
+      />
       <div
         className="flex flex-col border-1 w-full m-auto lg:w-[60%] lg:place-items-center lg:p-12 gap-10 p-3 lg:mt-10 mt-28
     md:w-[80%] lg:min-w-[800px]"
@@ -33,7 +53,7 @@ const Invoices = () => {
             <div className="flex relative">
               <FilterButton clicked={handleClick} />
             </div>
-            <PlusButton />
+            <PlusButton clicked={() => setInvoiceOpen(true)} />
           </div>
         </div>
         <div className="invoices w-full flex flex-col gap-3 overflow-scroll h-[70vh]">
