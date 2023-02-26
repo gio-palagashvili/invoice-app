@@ -37,18 +37,17 @@ const AddInvoice = (props) => {
   const addItemInput = (index) => {
     setItemsA(itemsA + 1);
     let news = items;
-    news.push({ itemName: "", qty: 0, price: 0, total: 0 });
+    news.push({ itemName: "", qty: 0, price: 0, itemTotalPrice: 0 });
     setItems(news);
   };
-
   const removeItemInput = (i) => {
-    setItemsA(itemsA - 1);
     let newArr = items;
     newArr.splice(
       items.findIndex((item, index) => index == i),
       1
     );
-    setItemsA(newArr);
+    setItemsA(itemsA - 1);
+    setItems(newArr);
   };
   const itemChangeHandler = (i, e) => {
     let itemsTemp = items;
@@ -64,19 +63,54 @@ const AddInvoice = (props) => {
     setError("");
     setInvoice({ ...invoice, [e.target.name]: e.target.value });
   };
+  const priceChange = (i, e) => {
+    let itemsTemp = items;
+    itemsTemp = itemsTemp.map((item, index) => {
+      if (i == index) {
+        item = {
+          ...item,
+          itemTotalPrice: item.qty * e.target.value,
+          price: e.target.value,
+        };
+      }
+      return item;
+    });
+    setItems(itemsTemp);
+  };
+  const qtyChange = (i, e) => {
+    let itemsTemp = items;
+    itemsTemp = itemsTemp.map((item, index) => {
+      if (i == index) {
+        item = {
+          ...item,
+          itemTotalPrice: item.price * e.target.value,
+          qty: e.target.value,
+        };
+      }
+      return item;
+    });
+    setItems(itemsTemp);
+  };
   const handleSubmit = () => {
     let tm = new Date(invoice.date);
     let due_date = new Date(tm.setDate(tm.getDate() + parseInt(invoice.net)));
     let valid = validateInput(invoice);
 
     if (valid.status == "success") {
-      // setInvoice({ ...invoice, due: due_date, itemList: items });
-      let invoice1 = invoice;
-      invoice.due_date = due_date;
-      invoice.itemList = items;
+      if (divs.length > 0) {
+        let total = 0;
+        items.map((item) => {
+          total += item.itemTotalPrice;
+        });
 
-      setInvoices([...invoices, invoice1]);
-      props.discard();
+        let invoice1 = invoice;
+        invoice.due_date = due_date;
+        invoice.itemList = items;
+        invoice.total = total;
+
+        setInvoices([...invoices, invoice1]);
+        props.discard();
+      } else setError("add atleast one item");
     } else setError(valid.error);
   };
 
@@ -85,8 +119,11 @@ const AddInvoice = (props) => {
     divs.push(
       <ItemInputs
         key={i}
+        total={items[i].itemTotalPrice}
         remove={() => removeItemInput(i)}
         change={(e) => itemChangeHandler(i, e)}
+        price={(e) => priceChange(i, e)}
+        qty={(e) => qtyChange(i, e)}
       />
     );
   }

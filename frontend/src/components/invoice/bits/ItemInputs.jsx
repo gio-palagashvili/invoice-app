@@ -9,20 +9,18 @@ const ItemInputs = (props) => {
       </div>
       <div className="flex gap-5 mt-3 sm:ml-5">
         <div className="w-1/6 sm:w-1/3">
-          <InputMain h1="Qty" name="qty" change={props.change} />
+          <InputMain h1="Qty" name="qty" change={props.qty} />
         </div>
         <div className="w-1/3">
-          <InputMain h1="price" name="price" change={props.change} />
+          <InputMain h1="price" name="price" change={props.price} />
         </div>
         <div className="w-1/3">
           <h1 className="capitalize font-[100] text-gray-300 text-[15px] mb-1">
             total
           </h1>
-          <input
-            type="text"
-            defaultValue={0}
-            className="bg-transparent w-[100%] p-3 h-12 border-none rounded-[4px] text-gray-300"
-          />
+          <div className="bg-transparent w-[100%] p-3 h-12 border-none rounded-[4px] text-gray-300">
+            {props.total}
+          </div>
         </div>
         <div className="w-[10%] flex justify-center place-items-center">
           <button className="p-10" onClick={props.remove}>
