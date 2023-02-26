@@ -23,11 +23,12 @@ const InvoiceDetail = (props) => {
       navigate("../");
     }
   }, []);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 1.1 }}
+      transition={{ duration: 0.9 }}
     >
       <div className="p-3 flex w-full place-items-center justify-center md:place-items-baseline md:mt-16 mt-20">
         <div className="w-[95%] mt-5 flex flex-col gap-10 md:w-[40rem]">
@@ -100,7 +101,7 @@ const InvoiceDetail = (props) => {
                 </div>
               </div>
               <div className="tableDiv">
-                <Table />
+                <Table items={curr.itemList} total={curr.total} />
               </div>
             </div>
           </div>

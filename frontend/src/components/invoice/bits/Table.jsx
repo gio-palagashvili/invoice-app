@@ -12,18 +12,16 @@ const Table = (props) => {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td className="p-5">pie</td>
-          <td>2</td>
-          <td>$2</td>
-          <td>$4</td>
-        </tr>
-        <tr>
-          <td className="p-5">apple</td>
-          <td>2</td>
-          <td>$2</td>
-          <td>$4</td>
-        </tr>
+        {props.items?.map((item, index) => {
+          return (
+            <tr key={index}>
+              <td className="p-5">{item.itemName}</td>
+              <td>{item.qty}</td>
+              <td>${item.price}</td>
+              <td>${item.itemTotalPrice}</td>
+            </tr>
+          );
+        })}
       </tbody>
       <tfoot className="bg-[#0C0E16] h-20 ">
         <tr>
@@ -33,7 +31,7 @@ const Table = (props) => {
           <td></td>
           <td></td>
           <td>
-            <h1>$4</h1>
+            <h1 className="text-3xl">${props.total}</h1>
           </td>
         </tr>
       </tfoot>

@@ -16,7 +16,10 @@ const FixedNavButtons = (props) => {
         <button className="w-[9rem] text-sm p-3 bg-[#252945] capitalize rounded-full hover:bg-[#20233b] duration-200">
           save as a draft
         </button>
-        <button className="w-[7rem] p-3 text-sm bg-[#7C5DFA] capitalize rounded-full hover:bg-[#674cd4] duration-200">
+        <button
+          className="w-[7rem] p-3 text-sm bg-[#7C5DFA] capitalize rounded-full hover:bg-[#674cd4] duration-200"
+          onClick={props.submit}
+        >
           save
         </button>
       </div>

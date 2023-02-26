@@ -9,7 +9,7 @@ import { AppContext } from "../context/AppContext";
 import AddInvoice from "./AddInvoice";
 
 const Invoices = () => {
-  const { invoices } = useContext(AppContext);
+  const { invoices, setInvoices } = useContext(AppContext);
   const [filter, setFilter] = useState("");
   const [invoiceOpen, setInvoiceOpen] = useState(false);
   const ref = useRef(null);

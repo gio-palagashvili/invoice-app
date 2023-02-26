@@ -15,10 +15,10 @@ const App = () => {
       description: "asl",
       clientName: "Alex grim",
       clientEmail: "girgi1201@gnail.com",
-      date: "Feb 14, 2023",
+      date: "feb 14, 2023",
       due: "mar 14, 2023",
       status: "paid",
-      itemList: [{ itemName: "thing", qty: 2, price: 2 }],
+      itemList: [{ itemName: "thing", qty: 2, price: 2, itemTotalPrice: 4 }],
       total: 4,
     },
     {
@@ -30,10 +30,10 @@ const App = () => {
       description: "asl",
       clientName: "light yagami",
       clientEmail: "girgi1201@gnail.com",
-      date: "Feb 14, 2023",
+      date: "feb 14, 2023",
       due: "mar 14, 2023",
       status: "pending",
-      itemList: [{ itemName: "lol", qty: 1, price: 2 }],
+      itemList: [{ itemName: "lol", qty: 1, price: 2, itemTotalPrice: 2 }],
       total: 2,
     },
   ]);
@@ -60,7 +60,12 @@ const App = () => {
 
   return (
     <AppContext.Provider
-      value={{ invoices, setInvoices, setInvoiceStatus, removeInvoice }}
+      value={{
+        invoices,
+        setInvoices,
+        setInvoiceStatus,
+        removeInvoice,
+      }}
     >
       <Router>
         <Routes>
