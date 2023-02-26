@@ -14,7 +14,6 @@ export const wordDate = (date) => {
 
   return `${arr[2]} ${arr[1]} ${arr[3]}`;
 };
-
 export const postalCode = (code) => {
   return /^\d{5}(?:[-\s]\d{4})?$/.test(code);
 };

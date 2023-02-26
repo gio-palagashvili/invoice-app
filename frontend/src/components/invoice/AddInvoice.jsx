@@ -70,8 +70,12 @@ const AddInvoice = (props) => {
     let valid = validateInput(invoice);
 
     if (valid.status == "success") {
-      setInvoice({ ...invoice, due: due_date, itemList: items });
-      setInvoices([...invoices, invoice]);
+      // setInvoice({ ...invoice, due: due_date, itemList: items });
+      let invoice1 = invoice;
+      invoice.due_date = due_date;
+      invoice.itemList = items;
+
+      setInvoices([...invoices, invoice1]);
       props.discard();
     } else setError(valid.error);
   };
