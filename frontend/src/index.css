@@ -20,6 +20,10 @@ select {
   outline: none;
 }
 
+.shown {
+  display: unset;
+}
+
 .logo img::after {
   content: "";
   position: absolute;

@@ -30,7 +30,7 @@ const InvoiceDetail = (props) => {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.9 }}
     >
-      <div className="p-3 flex w-full place-items-center justify-center md:place-items-baseline md:mt-16 mt-20">
+      <div className="p-3 flex w-full place-items-center justify-center md:place-items-baseline md:mt-16 mt-20 flex-col sm:flex-row">
         <div className="w-[95%] mt-5 flex flex-col gap-10 md:w-[40rem]">
           <Link to={"../"}>
             <h1 className="text-sm font-[200] flex gap-3 hover:underline cursor-pointer text-gray-200">
@@ -44,16 +44,18 @@ const InvoiceDetail = (props) => {
                 <h1 className="text-sm font-[200] text-gray-200">Status</h1>
                 <StatusButton status={curr.status} />
               </div>
-              <DuoButtons
-                status={curr.status}
-                paid={() => setInvoiceStatus(curr.id, "paid")}
-                remove={() => removeInvoice(curr.id)}
-              />
+              <div className="w-full hidden sm:block">
+                <DuoButtons
+                  status={curr.status}
+                  paid={() => setInvoiceStatus(curr.id, "paid")}
+                  remove={() => removeInvoice(curr.id)}
+                />
+              </div>
             </div>
             <div className="bg-[#1F2139] p-7 flex rounded-lg flex-col gap-5">
               <div className="addresss flex flex-col gap-5 md:flex-row">
                 <div>
-                  <h1 className="text-[13px] md:text-lg">
+                  <h1 className="text-[13px] md:text-lg mb-[2px]">
                     <span className="text-[#7E88C3]">#</span>
                     {curr.id}
                   </h1>
@@ -105,6 +107,18 @@ const InvoiceDetail = (props) => {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+      <div
+        className="bg-[#1F2139] flex justify-end 
+        h-15 p-3 w-full fixed bottom-0 sm:hidden"
+      >
+        <div className="w-1/2 pr-3">
+          <DuoButtons
+            status={curr.status}
+            paid={() => setInvoiceStatus(curr.id, "paid")}
+            remove={() => removeInvoice(curr.id)}
+          />
         </div>
       </div>
     </motion.div>

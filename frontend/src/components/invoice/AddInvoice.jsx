@@ -107,14 +107,14 @@ const AddInvoice = (props) => {
         invoice.due_date = due_date;
         invoice.itemList = items;
         invoice.total = total;
-
+        clearItems();
         setInvoices([...invoices, invoice1]);
         props.discard();
       } else setError("add atleast one item");
     } else setError(valid.error);
   };
 
-  const divs = [];
+  let divs = [];
   for (let i = 0; i < itemsA; i++) {
     divs.push(
       <ItemInputs
@@ -127,7 +127,10 @@ const AddInvoice = (props) => {
       />
     );
   }
-
+  const clearItems = () => {
+    divs = [];
+    setItemsA(0);
+  };
   return (
     <AnimatePresence>
       {props.item && (

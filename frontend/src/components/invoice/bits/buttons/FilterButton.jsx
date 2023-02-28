@@ -24,10 +24,9 @@ const FilterButton = (props) => {
   return (
     <div ref={ref}>
       <h6
-        className="text-sm flex gap-4 justify-center place-items-center cursor-pointer"
+        className="text-sm flex gap-4 justify-center place-items-center cursor-pointer before:content-['filter'] md:before:content-['filter_by_status']"
         onClick={() => setDd((current) => !current)}
       >
-        filter by status
         <motion.div
           animate={{
             rotate: isOpenDd ? 0 : 180,

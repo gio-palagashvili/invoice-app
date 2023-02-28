@@ -1,6 +1,5 @@
 import React from "react";
 import logo from "../../assets/logo.svg";
-import sun from "../../assets/icon-sun.svg";
 
 const Nav = (props) => {
   return (
@@ -9,7 +8,6 @@ const Nav = (props) => {
         <img src={logo} alt="" className="w-[31px] h-[28px] self-center" />
       </div>
       <div className="flex place-content-center ml-auto gap-5 lg:mt-auto lg:flex-col lg:ml-[0] lg-h-[10rem] h-min-[1200px]">
-        <img src={sun} alt="" className="self-center" />
         <div
           className="border-l-[0.5px] border-[#494E6E] flex place-items-center w-[5.5rem] justify-center lg:border-t-[0.5px]
         lg:w-full h-20

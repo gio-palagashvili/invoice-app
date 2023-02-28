@@ -48,9 +48,9 @@ const Invoices = () => {
     md:w-[80%] lg:min-w-[800px]"
       >
         <div className="flex w-full">
-          <Header />
+          <Header count={invoices.length} />
           <div className="rigth ucapitalize ml-auto flex justify-center place-items-center gap-10">
-            <div className="flex relative">
+            <div className="flex relative ml-auto">
               <FilterButton clicked={handleClick} />
             </div>
             <PlusButton clicked={() => setInvoiceOpen(true)} />

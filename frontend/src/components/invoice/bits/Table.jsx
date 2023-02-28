@@ -8,7 +8,7 @@ const Table = (props) => {
           <th className="p-5 font-[100]">Item Name</th>
           <th className="font-[100]">QTY.</th>
           <th className="font-[100]">Price</th>
-          <th className="font-[100]">Total</th>
+          <th className="font-[100] text-center">Total</th>
         </tr>
       </thead>
       <tbody>
@@ -17,21 +17,23 @@ const Table = (props) => {
             <tr key={index}>
               <td className="p-5">{item.itemName}</td>
               <td>{item.qty}</td>
-              <td>${item.price}</td>
-              <td>${item.itemTotalPrice}</td>
+              <td>${item.price?.toFixed(2)}</td>
+              <td className="text-center">
+                ${item.itemTotalPrice?.toFixed(2)}
+              </td>
             </tr>
           );
         })}
       </tbody>
-      <tfoot className="bg-[#0C0E16] h-20 ">
+      <tfoot className="bg-[#0C0E16] h-20">
         <tr>
-          <td className="p-10">
-            <h1>Amount due</h1>
+          <td className="p-5">
+            <h1>Amount due :</h1>
           </td>
           <td></td>
           <td></td>
           <td>
-            <h1 className="text-3xl">${props.total}</h1>
+            <h1 className="text-3xl text-center">${props.total?.toFixed(2)}</h1>
           </td>
         </tr>
       </tfoot>

@@ -33,7 +33,9 @@ const App = () => {
       date: "2023-02-27",
       due: "2033-03-29",
       status: "pending",
-      itemList: [{ itemName: "lol", qty: 1, price: 2, itemTotalPrice: 2 }],
+      itemList: [
+        { itemName: "lol", qty: 1, price: 2, itemTotalPrice: 2.52111 },
+      ],
       total: 2,
     },
   ]);
