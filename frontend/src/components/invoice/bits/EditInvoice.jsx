@@ -25,20 +25,8 @@ const EditInvoice = (props) => {
         }
       }
     }
-    if (invoice?.itemList) {
-      invoice.itemList.map((item, index) => {
-        divs.push(
-          <ItemInputs
-            key={index}
-            total={item.itemTotalPrice}
-            remove={() => removeItemInput(i)}
-            change={(e) => itemChangeHandler(i, e)}
-            price={(e) => priceChange(i, e)}
-            qty={(e) => qtyChange(i, e)}
-          />
-        );
-      });
-    }
+    setItemsA(invoice?.itemList?.length);
+    setItems(invoice?.itemList);
   }, [props, invoice]);
 
   const [items, setItems] = useState([]);
@@ -108,7 +96,7 @@ const EditInvoice = (props) => {
     let valid = validateInput(invoice);
 
     if (valid.status == "success") {
-      if (divs.length > 0) {
+      if (itemsA > 0) {
         let total = 0;
         items.map((item) => {
           total += item.itemTotalPrice;
@@ -118,24 +106,19 @@ const EditInvoice = (props) => {
         invoice.due_date = due_date;
         invoice.itemList = items;
         invoice.total = total;
+
         clearItems();
-        setInvoices([...invoices, invoice1]);
+        let newInvoices = invoices;
+        newInvoices.map((i, index) => {
+          if (i.id == props.id) {
+            return invoice1;
+          }
+          return i;
+        });
         props.discard();
       } else setError("add atleast one item");
     } else setError(valid.error);
   };
-  for (let i = 0; i < itemsA; i++) {
-    divs.push(
-      <ItemInputs
-        key={i}
-        total={items[i].itemTotalPrice}
-        remove={() => removeItemInput(i)}
-        change={(e) => itemChangeHandler(i, e)}
-        price={(e) => priceChange(i, e)}
-        qty={(e) => qtyChange(i, e)}
-      />
-    );
-  }
   const clearItems = () => {
     divs = [];
     setItemsA(0);
@@ -285,12 +268,13 @@ const EditInvoice = (props) => {
                     <div className="mt-5 relative pb-[10rem]">
                       <h1 className="text-2xl mb-5">Item List</h1>
                       <div className="flex flex-col">
-                        {invoice?.itemList.map((item, index) => {
+                        {items.map((item, index) => {
                           return (
                             <ItemInputs
+                              key={index}
                               priceVal={item.price}
                               qtyVal={item.qty}
-                              key={index}
+                              name={item.itemName}
                               total={item.itemTotalPrice}
                               remove={() => removeItemInput(index)}
                               change={(e) => itemChangeHandler(index, e)}

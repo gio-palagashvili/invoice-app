@@ -21,7 +21,7 @@ const App = () => {
       net: 30,
       itemList: [
         { itemName: "thing", qty: 2, price: 2, itemTotalPrice: 4 },
-        { itemName: "thing", qty: 2, price: 2, itemTotalPrice: 4 },
+        { itemName: "no", qty: 2, price: 2, itemTotalPrice: 4 },
       ],
       total: 4,
     },

@@ -5,7 +5,12 @@ const ItemInputs = (props) => {
   return (
     <div className="flex flex-col sm:flex-row w-full sm:justify-between">
       <div className="w-full mt-5 sm:mt-3 sm:1/3">
-        <InputMain h1="item name" name="itemName" change={props.change} />
+        <InputMain
+          h1="item name"
+          name="itemName"
+          change={props.change}
+          value={props.name}
+        />
       </div>
       <div className="flex gap-5 mt-3 sm:ml-5">
         <div className="w-1/6 sm:w-1/3">

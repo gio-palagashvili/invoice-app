@@ -17,9 +17,9 @@ const Table = (props) => {
             <tr key={index}>
               <td className="p-5">{item.itemName}</td>
               <td>{item.qty}</td>
-              <td>${item.price?.toFixed(2)}</td>
+              <td>${parseInt(item.price)?.toFixed(2)}</td>
               <td className="text-center">
-                ${item.itemTotalPrice?.toFixed(2)}
+                ${parseInt(item?.itemTotalPrice)?.toFixed(2)}
               </td>
             </tr>
           );
