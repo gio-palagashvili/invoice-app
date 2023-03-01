@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import arrow from "../../../assets/down_arrow.svg";
 import Address from "./Address";
 import DuoButtons from "./buttons/DuoButtons";
@@ -7,6 +7,7 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import Table from "./Table";
 import { AppContext } from "../../context/AppContext";
 import { motion } from "framer-motion";
+import EditInvoice from "./EditInvoice";
 
 const InvoiceDetail = (props) => {
   const { invoices, setInvoices, setInvoiceStatus, removeInvoice } =
@@ -14,6 +15,8 @@ const InvoiceDetail = (props) => {
   const [curr, setCurr] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
+  const [invoiceOpen, setInvoiceOpen] = useState(false);
+  const ref = useRef(null);
 
   useEffect(() => {
     const z = invoices.find((invoice) => invoice.id == id);
@@ -24,12 +27,28 @@ const InvoiceDetail = (props) => {
     }
   }, []);
 
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (ref.current && !ref.current.contains(event.target)) {
+        setInvoiceOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [ref]);
+
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.9 }}
-    >
+    <>
+      <EditInvoice
+        refr={ref}
+        item={invoiceOpen}
+        discard={() => setInvoiceOpen(false)}
+        id={curr.id}
+      />
       <div className="p-3 flex w-full place-items-center justify-center md:place-items-baseline md:mt-16 mt-20 flex-col sm:flex-row">
         <div className="w-[95%] mt-5 flex flex-col gap-10 md:w-[40rem]">
           <Link to={"../"}>
@@ -49,6 +68,7 @@ const InvoiceDetail = (props) => {
                   status={curr.status}
                   paid={() => setInvoiceStatus(curr.id, "paid")}
                   remove={() => removeInvoice(curr.id)}
+                  edit={() => setInvoiceOpen(true)}
                 />
               </div>
             </div>
@@ -121,7 +141,7 @@ const InvoiceDetail = (props) => {
           />
         </div>
       </div>
-    </motion.div>
+    </>
   );
 };
 

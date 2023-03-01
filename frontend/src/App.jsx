@@ -18,7 +18,11 @@ const App = () => {
       date: "2023-02-27",
       due: "2033-01-29",
       status: "paid",
-      itemList: [{ itemName: "thing", qty: 2, price: 2, itemTotalPrice: 4 }],
+      net: 30,
+      itemList: [
+        { itemName: "thing", qty: 2, price: 2, itemTotalPrice: 4 },
+        { itemName: "thing", qty: 2, price: 2, itemTotalPrice: 4 },
+      ],
       total: 4,
     },
     {
@@ -32,6 +36,7 @@ const App = () => {
       clientEmail: "girgi1201@gnail.com",
       date: "2023-02-27",
       due: "2033-03-29",
+      net: 1,
       status: "pending",
       itemList: [
         { itemName: "lol", qty: 1, price: 2, itemTotalPrice: 2.52111 },

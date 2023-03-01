@@ -15,18 +15,34 @@ const InputMain = (props) => {
           {props.errorMessage}
         </span>
       </h1>
-      <input
-        type="text"
-        className={
-          props.errorMessage
-            ? errorStyleInput
-            : "bg-[#1F2139] border-[#252945] w-[100%] p-3 h-12 border-solid border-[1px] rounded-[4px]"
-        }
-        style={{ ...props.style }}
-        placeholder={props.place}
-        name={props.name}
-        onChange={props.change}
-      />
+      {props.value ? (
+        <input
+          type="text"
+          className={
+            props.errorMessage
+              ? errorStyleInput
+              : "bg-[#1F2139] border-[#252945] w-[100%] p-3 h-12 border-solid border-[1px] rounded-[4px]"
+          }
+          style={{ ...props.style }}
+          placeholder={props.place}
+          value={props.value}
+          name={props.name}
+          onChange={props.change}
+        />
+      ) : (
+        <input
+          type="text"
+          className={
+            props.errorMessage
+              ? errorStyleInput
+              : "bg-[#1F2139] border-[#252945] w-[100%] p-3 h-12 border-solid border-[1px] rounded-[4px]"
+          }
+          style={{ ...props.style }}
+          placeholder={props.place}
+          name={props.name}
+          onChange={props.change}
+        />
+      )}
     </>
   );
 };

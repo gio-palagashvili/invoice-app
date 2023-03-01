@@ -2,7 +2,7 @@ import React from "react";
 
 const FixedNavButtons = (props) => {
   return (
-    <div className="fixed bottom-0 bg-[#141625] h-[7rem] flex place-items-center p-4 w-[inherit] lg:w-[40rem] lg:pl-[5rem] md:w-[80%]">
+    <div className="fixed bottom-0 bg-[#141625] flex place-items-center p-4 w-[inherit] lg:w-[40rem] lg:pl-[5rem] md:w-[80%]">
       <div className="w-1/2">
         <button
           className="text-sm p-3 bg-[#252945] capitalize rounded-full 
