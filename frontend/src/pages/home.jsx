@@ -1,9 +1,12 @@
-import React, { useContext } from "react";
+import React, { useEffect } from "react";
 import Nav from "../components/nav/Nav";
 import { motion, AnimatePresence } from "framer-motion";
 import Invoices from "../components/invoice/Invoices";
 
 const Home = () => {
+  useEffect(() => {
+    document.title = "Home";
+  }, []);
   return (
     <div className="z-1 flex flex-col ">
       <Nav />

@@ -6,7 +6,6 @@ import StatusButton from "./buttons/StatusButton";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import Table from "./Table";
 import { AppContext } from "../../context/AppContext";
-import { motion } from "framer-motion";
 import EditInvoice from "./EditInvoice";
 
 const InvoiceDetail = (props) => {
@@ -25,6 +24,7 @@ const InvoiceDetail = (props) => {
     } else {
       navigate("../");
     }
+    document.title = `Invoice - #${id}`;
   }, [invoices]);
 
   useEffect(() => {
