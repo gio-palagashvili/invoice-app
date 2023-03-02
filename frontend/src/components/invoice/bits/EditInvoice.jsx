@@ -27,7 +27,7 @@ const EditInvoice = (props) => {
     }
     setItemsA(invoice?.itemList?.length);
     setItems(invoice?.itemList);
-  }, [props, invoice]);
+  }, [props]);
 
   const [items, setItems] = useState([]);
   const [itemsA, setItemsA] = useState(0);
@@ -102,19 +102,22 @@ const EditInvoice = (props) => {
           total += item.itemTotalPrice;
         });
 
-        let invoice1 = invoice;
         invoice.due_date = due_date;
         invoice.itemList = items;
         invoice.total = total;
 
         clearItems();
         let newInvoices = invoices;
-        newInvoices.map((i, index) => {
-          if (i.id == props.id) {
-            return invoice1;
-          }
-          return i;
-        });
+
+        setInvoices(
+          newInvoices.map((i, index) => {
+            if (i.id == props.id) {
+              return invoice;
+            }
+            return i;
+          })
+        );
+
         props.discard();
       } else setError("add atleast one item");
     } else setError(valid.error);
@@ -132,21 +135,24 @@ const EditInvoice = (props) => {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="absolute w-full h-full z-10 flex bg-[#00000089]">
+          <div className="fixed w-full h-[100vh] z-10 flex bg-[#00000089]">
             <motion.div
               initial={{ x: "-100%" }}
               animate={{ x: 0 }}
               transition={{ duration: 0.5 }}
               exit={{ opacity: 0, x: "-100%" }}
-              className="w-full h-full"
+              className="w-full"
             >
               <div
-                className="w-full flex justify-center place-items-center bg-[#141625] pt-[5rem] lg:pt-0 md:rounded-tr-2xl lg:pl-[5rem]
-      md:rounded-br-2xl sm:rounded-none md:w-[80%] md:pl-5 lg:w-[45rem] overflow-y-scroll h-[100%]"
+                className="w-full flex justify-center bg-[#141625] pt-[5rem] lg:pt-0 md:rounded-tr-2xl lg:pl-[5rem]
+      md:rounded-br-2xl sm:rounded-none md:w-[80%] md:pl-5 lg:w-[45rem] overflow-y-scroll h-full "
                 ref={props.refr}
               >
-                <div className="w-[80%] h-[90%] ">
-                  <h1 className="text-3xl">Create Invoice</h1>
+                <div className="w-[80%] mt-[2rem]">
+                  <h1 className="text-3xl">
+                    Edit <span>#</span>
+                    {props.id}
+                  </h1>
                   <div className="inputs flex flex-col gap-4">
                     <h1 className="text-[#7C5DFA] mt-10">Bill from</h1>
                     {/* input divs */}
@@ -268,7 +274,7 @@ const EditInvoice = (props) => {
                     <div className="mt-5 relative pb-[10rem]">
                       <h1 className="text-2xl mb-5">Item List</h1>
                       <div className="flex flex-col">
-                        {items.map((item, index) => {
+                        {items?.map((item, index) => {
                           return (
                             <ItemInputs
                               key={index}

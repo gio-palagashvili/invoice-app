@@ -25,7 +25,7 @@ const InvoiceDetail = (props) => {
     } else {
       navigate("../");
     }
-  }, []);
+  }, [invoices]);
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
@@ -85,6 +85,7 @@ const InvoiceDetail = (props) => {
                 </div>
                 <Address
                   country={curr.country}
+                  style={{ textAlign: "right" }}
                   postalCode={curr.postalCode}
                   billingAddress={curr.billingAddress}
                   city={curr.city}
