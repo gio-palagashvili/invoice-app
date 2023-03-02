@@ -13,9 +13,14 @@ const FixedNavButtons = (props) => {
         </button>
       </div>
       <div className="w-full flex justify-end pr-3 gap-3 place-items-center">
-        <button className="w-[9rem] text-sm p-3 bg-[#252945] capitalize rounded-full hover:bg-[#20233b] duration-200">
-          save as a draft
-        </button>
+        {props.draft ? (
+          <button
+            className="w-[9rem] text-sm p-3 bg-[#252945] capitalize rounded-full hover:bg-[#20233b] duration-200"
+            onClick={props.draft}
+          >
+            save as a draft
+          </button>
+        ) : null}
         <button
           className="w-[7rem] p-3 text-sm bg-[#7C5DFA] capitalize rounded-full hover:bg-[#674cd4] duration-200"
           onClick={props.submit}

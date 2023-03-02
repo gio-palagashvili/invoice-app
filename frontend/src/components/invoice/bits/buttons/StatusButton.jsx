@@ -18,8 +18,8 @@ const StatusButton = (props) => {
       );
     case "draft":
       return (
-        <button className="bg-[#dfe3fa7e] p-3 custom text-sm flex justify-center place-items-center gap-2 text-[#33D69F] font-[500]">
-          <span className="h-[0.45rem] w-[0.45rem] rounded-full bg-[##DFE3FA]"></span>
+        <button className="bg-[#292C45] p-3 custom text-sm flex justify-center place-items-center gap-2 text-[#dfe3fa] font-[500]">
+          <span className="h-[0.45rem] w-[0.45rem] rounded-full bg-[#DFE3FA]"></span>
           Draft
         </button>
       );

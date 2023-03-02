@@ -113,7 +113,20 @@ const AddInvoice = (props) => {
       } else setError("add atleast one item");
     } else setError(valid.error);
   };
+  const draft = () => {
+    invoice.status = "draft";
+    clearItems();
+    let newInvoices = invoices;
 
+    setInvoices(
+      newInvoices.map((i, index) => {
+        if (i.id == props.id) {
+          return invoice;
+        }
+        return i;
+      })
+    );
+  };
   let divs = [];
   for (let i = 0; i < itemsA; i++) {
     divs.push(
@@ -287,6 +300,7 @@ const AddInvoice = (props) => {
                 <FixedNavButtons
                   discard={props.discard}
                   submit={handleSubmit}
+                  draft={draft}
                 />
               </div>
             </motion.div>

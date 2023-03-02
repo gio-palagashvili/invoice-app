@@ -13,7 +13,6 @@ const EditInvoice = (props) => {
   const { invoices, setInvoices } = useContext(AppContext);
 
   const [invoice, setInvoice] = useState({});
-  let divs = [];
 
   useEffect(() => {
     setInvoice(invoices.find((invoice) => invoice.id == props.id));
@@ -126,7 +125,6 @@ const EditInvoice = (props) => {
     divs = [];
     setItemsA(0);
   };
-
   return (
     <AnimatePresence>
       {props.item && (
@@ -150,7 +148,7 @@ const EditInvoice = (props) => {
               >
                 <div className="w-[80%] mt-[2rem]">
                   <h1 className="text-3xl">
-                    Edit <span>#</span>
+                    Edit <span className="text-[#7E88C3]">#</span>
                     {props.id}
                   </h1>
                   <div className="inputs flex flex-col gap-4">
