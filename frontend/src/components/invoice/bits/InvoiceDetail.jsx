@@ -9,8 +9,7 @@ import { AppContext } from "../../context/AppContext";
 import EditInvoice from "./EditInvoice";
 
 const InvoiceDetail = (props) => {
-  const { invoices, setInvoices, setInvoiceStatus, removeInvoice } =
-    useContext(AppContext);
+  const { invoices, setInvoiceStatus, removeInvoice } = useContext(AppContext);
   const [curr, setCurr] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
