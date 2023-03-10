@@ -25,10 +25,12 @@ CREATE table invoices_tbl (
 );
 
 CREATE table invoice_item_tbl (
+    item_index serial PRIMARY KEY,
+    item_name VARCHAR(255) not null,
     invoice_index int,
     qty VARCHAR(255),
     price VARCHAR(255),
     total VARCHAR(255),
-    CONSTRAINT fk_invoices_tbl FOREIGN key (invoice_index) REFERENCES invoices_tbl (invoice_index) ON
+    CONSTRAINT fk_invoices_tbl FOREIGN key (invoice_index) REFERENCES invoices_tbl (index) ON
     DELETE CASCADE
 )
