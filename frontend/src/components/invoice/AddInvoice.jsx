@@ -105,9 +105,10 @@ const AddInvoice = (props) => {
         });
 
         let invoice1 = invoice;
-        invoice.due = due_date.toISOString().substring(0, 10);
-        invoice.itemList = items;
-        invoice.total = total;
+
+        invoice1.due = due_date.toISOString().substring(0, 10);
+        invoice1.itemList = items;
+        invoice1.total = total;
 
         axios
           .post("http://localhost:5500/invoice/create", {

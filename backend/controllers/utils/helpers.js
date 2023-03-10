@@ -19,6 +19,10 @@ export const postalCode = (code) => {
 };
 
 export const validateInput = (invoice) => {
+    // if (invoice.status != "pending" && invoice.status != "draft" && invoice.status != "paid"){
+    // return { error: "invalid status", status: "error" }
+    // }
+
     if (!isEmpty(invoice.billingAddress)) {
         if (!containsNumbers(invoice.city) && !isEmpty(invoice.city)) {
             if (postalCode(invoice.postCode) && !isEmpty(invoice.postCode)) {
