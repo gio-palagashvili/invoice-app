@@ -17,22 +17,6 @@ export const wordDate = (date) => {
 export const postalCode = (code) => {
   return /^\d{5}(?:[-\s]\d{4})?$/.test(code);
 };
-export const generateString = () => {
-  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  let x = "";
-  let y = "";
-
-  for (let i = 0; i < 3; i++) {
-    const randomIndex = Math.floor(Math.random() * alphabet.length);
-    x += alphabet.charAt(randomIndex);
-  }
-  for (let i = 0; i < 3; i++) {
-    const randomNum = Math.floor(Math.random() * 10);
-    y += randomNum.toString();
-  }
-
-  return x + y;
-};
 
 export const validateInput = (invoice) => {
   if (!isEmpty(invoice.billingAddress)) {

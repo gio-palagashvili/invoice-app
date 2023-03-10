@@ -4,8 +4,9 @@ import InputMain from "./bits/Inputs/InputMain";
 import ItemInputs from "./bits/ItemInputs";
 import { motion, AnimatePresence } from "framer-motion";
 import FixedNavButtons from "./bits/buttons/FixedNavButtons";
-import { validateInput, generateString } from "../utils/validators";
+import { validateInput } from "../utils/validators";
 import { AppContext } from "../context/AppContext";
+import axios from "axios";
 
 const AddInvoice = (props) => {
   var date = new Date();
@@ -13,7 +14,7 @@ const AddInvoice = (props) => {
   const { invoices, setInvoices } = useContext(AppContext);
 
   const [invoice, setInvoice] = useState({
-    id: generateString(),
+    id: "#uk",
     billingAddress: "",
     city: "",
     postCode: "",
@@ -104,12 +105,24 @@ const AddInvoice = (props) => {
         });
 
         let invoice1 = invoice;
-        invoice.due_date = due_date;
+        invoice.due = due_date.toISOString().substring(0, 10);
         invoice.itemList = items;
         invoice.total = total;
-        clearItems();
-        setInvoices([...invoices, invoice1]);
-        props.discard();
+
+        axios
+          .post("http://localhost:5500/invoice/create", {
+            invoice1,
+          })
+          .then((data) => {
+            console.log(invoice1);
+          })
+          .catch((err) => {
+            setError(err.message);
+          });
+
+        // clearItems();
+        // setInvoices([...invoices, invoice1]);
+        // props.discard();
       } else setError("add atleast one item");
     } else setError(valid.error);
   };
