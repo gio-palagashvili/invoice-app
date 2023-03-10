@@ -10,7 +10,8 @@ CREATE TABLE users_tbl (
 
 CREATE table invoices_tbl (
     invoice_index serial PRIMARY KEY,
-    invoice_id VARCHAR(255) NOT NULL,
+    invoice_id VARCHAR(255) NOT NULL UNIQUE,
+    invoice_status VARCHAR(255) NOT NULL,
     billing_address VARCHAR(255) NOT NULL,
     billing_city VARCHAR(255) NOT NULL,
     billing_country VARCHAR(255) NOT NULL,

@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import { errorHandlerMiddleware } from "./middlewares/errorHandlerMiddleware.js";
 import userRoutes from "./routes/userRoutes.js"
+import invoiceRoutes from "./routes/invoiceRoutes.js";
 
 const app = express();
 dotenv.config({ path: ".env" });
@@ -16,6 +17,7 @@ app.use(express.json());
 
 //routes
 app.use("/user", userRoutes);
+app.use("/invoice", invoiceRoutes);
 app.use(errorHandlerMiddleware);
 
 app.listen(port, () => {
