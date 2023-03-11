@@ -1,30 +1,12 @@
 import db from "../config/db.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt"
-import { validateInput } from "./utils/helpers.js";
-
-const generateString = () => {
-    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    let x = "";
-    let y = "";
-
-    for (let i = 0; i < 3; i++) {
-        const randomIndex = Math.floor(Math.random() * alphabet.length);
-        x += alphabet.charAt(randomIndex);
-    }
-    for (let i = 0; i < 3; i++) {
-        const randomNum = Math.floor(Math.random() * 10);
-        y += randomNum.toString();
-    }
-
-    return x + y;
-};
+import { validateInput, generateString } from "./utils/helpers.js";
 
 export const createInvoice = async (req, res) => {
     try {
         let { id, billingAddress, city, country, date, due,
             net, status, clientEmail, clientName, description, total, postCode, itemList } = req.body.invoice1;
-        console.log(itemList)
         let tm = new Date(date);
         due = new Date(tm.setDate(tm.getDate() + parseInt(net)))
 
@@ -38,10 +20,10 @@ export const createInvoice = async (req, res) => {
                 [id, billingAddress, city, country,
                     due, total, req.user.user_id, description, date, status, clientName, clientEmail, net, postCode]);
 
-        itemList.map(async (item) => {
+        await Promise.all(itemList.map(async (item) => {
             const createItems = await db.query("INSERT INTO invoice_item_tbl( qty, price, total, invoice_index, item_name) VALUES($1, $2, $3, $4, $5)",
                 [item.qty, item.price, item.total, createInvoice.rows[0].index, item.itemName]);
-        })
+        }));
 
         return res.status(200).json({ message: `invoice created with id ${id}`, status: true });
     } catch (error) {

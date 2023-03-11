@@ -1,5 +1,5 @@
 import express from "express";
-import { loginUser, registerUser } from "../controllers/userController.js"
+import { loginUser, registerUser, verifyToken } from "../controllers/userController.js"
 import { authMiddleware } from '../middlewares/authMiddleware.js'
 const router = express.Router();
 
@@ -7,5 +7,6 @@ const router = express.Router();
 router
     .post("/register", registerUser)
     .post("/login", loginUser)
+    .post("/verify", authMiddleware, verifyToken)
 
 export default router;

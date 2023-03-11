@@ -38,3 +38,8 @@ export const loginUser = async (req, res) => {
             { "expiresIn": "120d" })
     })
 }
+export const verifyToken = async (req, res) => {
+    return res.status(200).json({
+        message: "user verified", status: true, token: req.header("authorization").split(" ")[1]
+    })
+}

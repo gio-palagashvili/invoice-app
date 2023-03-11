@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Home from "./pages/home";
 import Invoice from "./pages/invoice";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+// import protectedRoutes from "./components/utils/protectedRoutes";
 import { AppContext } from "./components/context/AppContext";
+import axios from "axios";
+import Login from "./pages/login";
 
 const App = () => {
   const [invoices, setInvoices] = useState([
@@ -44,6 +47,7 @@ const App = () => {
       total: 2,
     },
   ]);
+  const [user, setUser] = useState(null);
 
   const setInvoiceStatus = (id, status) => {
     let invoicesTemp = invoices;
@@ -64,6 +68,20 @@ const App = () => {
     );
     setInvoices(newArr);
   };
+  useEffect(() => {
+    let userToken = localStorage.getItem("user");
+    if (userToken) {
+      axios.defaults.headers.common["Authorization"] = `Bearer ${userToken}`;
+      axios
+        .post("http://localhost:5500/user/verify")
+        .then((x) => {
+          setUser(x.data.token);
+        })
+        .catch((err) => {
+          setUser(null);
+        });
+    }
+  }, []);
 
   return (
     <AppContext.Provider
@@ -72,13 +90,21 @@ const App = () => {
         setInvoices,
         setInvoiceStatus,
         removeInvoice,
+        user,
+        setUser,
       }}
     >
       <Router>
-        <Routes>
-          <Route path="/invoice/:id" element={<Invoice />} />
-          <Route path="/*" element={<Home />} />
-        </Routes>
+        {user ? (
+          <Routes>
+            <Route path="/invoice/:id" element={<Invoice />} />
+            <Route path="/*" element={<Home />} />
+          </Routes>
+        ) : (
+          <Routes>
+            <Route path="/*" element={<Login />} />
+          </Routes>
+        )}
       </Router>
     </AppContext.Provider>
   );
