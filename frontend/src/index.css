@@ -11,6 +11,16 @@
   font-family: 'League Spartan';
 }
 
+:root {
+  --bg-main: #141624;
+  --bg-accent: #1F2137;
+  --main-off: #775EF1;
+}
+
+html {
+  background-color: var(--bg-main);
+}
+
 input {
   outline: none;
 }

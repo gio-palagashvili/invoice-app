@@ -95,16 +95,17 @@ const App = () => {
       }}
     >
       <Router>
-        {user ? (
-          <Routes>
-            <Route path="/invoice/:id" element={<Invoice />} />
-            <Route path="/*" element={<Home />} />
-          </Routes>
-        ) : (
+        {/* {user ? ( */}
+        <Routes>
+          <Route path="/invoice/:id" element={<Invoice />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/*" element={<Home />} />
+        </Routes>
+        {/* ) : (
           <Routes>
             <Route path="/*" element={<Login />} />
           </Routes>
-        )}
+        )} */}
       </Router>
     </AppContext.Provider>
   );

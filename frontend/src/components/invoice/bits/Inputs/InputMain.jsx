@@ -17,7 +17,7 @@ const InputMain = (props) => {
       </h1>
       {props.value ? (
         <input
-          type="text"
+          type={props.name.includes("password") ? "password" : "text"}
           className={
             props.errorMessage
               ? errorStyleInput
@@ -31,7 +31,7 @@ const InputMain = (props) => {
         />
       ) : (
         <input
-          type="text"
+          type={props.name.includes("password") ? "password" : "text"}
           className={
             props.errorMessage
               ? errorStyleInput
