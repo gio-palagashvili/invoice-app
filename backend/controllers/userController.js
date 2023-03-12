@@ -30,11 +30,11 @@ export const loginUser = async (req, res) => {
 
     const checkUser = await db.query("select * from users_tbl where username = $1", [username])
     if (checkUser.rowCount == 0) return res.status(400).json({ message: "invalid credentials", status: false });
-    if (!await bcrypt.compare(password, checkUser.rows[0].password)) return res.status(400).json({ message: "invalid credentials", status: false });
+    if (!await bcrypt.compare(password, checkUser.rows[0].password)) return res.status(400).json({ message: "incorrect credentials", status: false });
     delete checkUser.rows[0].password;
 
     return res.status(200).json({
-        message: "logged in", status: true, user: jwt.sign(checkUser.rows[0], process.env.JWT,
+        message: "logged in", status: true, token: jwt.sign(checkUser.rows[0], process.env.JWT,
             { "expiresIn": "120d" })
     })
 }
