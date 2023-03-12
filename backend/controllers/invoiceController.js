@@ -30,3 +30,27 @@ export const createInvoice = async (req, res) => {
         return res.status(400).json({ message: error.message, status: false });
     }
 }
+export const userInvoices = async (req, res) => {
+    try {
+        const getInvoices = await db.query("SELECT * FROM invoices_tbl where user_id = $1 limit 10", [req.user.user_id])
+        return res.status(200).json({ status: true, invoices: getInvoices.rows });
+    } catch (error) {
+        return res.status(400).json({ messgae: error.message, status: false });
+    }
+};
+export const getInvoice = async (req, res) => {
+    const id = req.params.id;
+    try {
+        // const getInvoiceWithItems = await db.query("SELECT invoices_tbl.*, invoice_item_tbl.* FROM invoices_tbl INNER JOIN invoice_item_tbl ON invoices_tbl.index = invoice_item_tbl.invoice_index WHERE invoices_tbl.invoice_id = $1", [id]);
+        const getInvoice = await db.query("SELECT * FROM invoices_tbl where invoice_id = $1", [id])
+        if (getInvoice.rowCount == 0) {
+            return res.status(400).json({ messgae: "invalid id", status: false });
+        }
+        const getItems = await db.query("SELECT * FROM invoice_item_tbl where invoice_index = $1", [getInvoice.rows[0].index])
+        getInvoice.rows[0].itemList = getItems.rows;
+
+        return res.status(200).json({ status: true, invoice: getInvoice.rows[0] });
+    } catch (error) {
+        return res.status(400).json({ messgae: error.message, status: false });
+    }
+}

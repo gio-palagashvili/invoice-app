@@ -15,11 +15,11 @@ const Table = (props) => {
         {props.items?.map((item, index) => {
           return (
             <tr key={index}>
-              <td className="p-5">{item.itemName}</td>
+              <td className="p-5">{item.item_name}</td>
               <td>{item.qty}</td>
               <td>${parseInt(item.price)?.toFixed(2)}</td>
               <td className="text-center">
-                ${parseInt(item?.itemTotalPrice)?.toFixed(2)}
+                ${parseInt(item?.total)?.toFixed(2)}
               </td>
             </tr>
           );

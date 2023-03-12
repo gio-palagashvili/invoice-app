@@ -7,6 +7,7 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import Table from "./Table";
 import { AppContext } from "../../context/AppContext";
 import EditInvoice from "./EditInvoice";
+import axios from "axios";
 
 const InvoiceDetail = (props) => {
   const { invoices, setInvoiceStatus, removeInvoice } = useContext(AppContext);
@@ -17,14 +18,16 @@ const InvoiceDetail = (props) => {
   const ref = useRef(null);
 
   useEffect(() => {
-    const z = invoices.find((invoice) => invoice.id == id);
-    if (z) {
-      setCurr(z);
-    } else {
-      navigate("../");
-    }
-    document.title = `Invoice - #${id}`;
-  }, [invoices]);
+    axios
+      .get(`http://localhost:5500/invoice/${id}`)
+      .then((res) => {
+        setCurr(res.data.invoice);
+        document.title = `Invoice - #${id}`;
+      })
+      .catch(() => {
+        navigate("/");
+      });
+  }, []);
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
@@ -46,7 +49,7 @@ const InvoiceDetail = (props) => {
         refr={ref}
         item={invoiceOpen}
         discard={() => setInvoiceOpen(false)}
-        id={curr.id}
+        id={curr.invoice_id}
       />
       <div className="p-3 flex w-full place-items-center justify-center md:place-items-baseline md:mt-16 mt-20 flex-col sm:flex-row">
         <div className="w-[95%] mt-5 flex flex-col gap-10 md:w-[40rem]">
@@ -60,13 +63,13 @@ const InvoiceDetail = (props) => {
             <div className="bg-[#1F2139] w-full p-5 flex rounded-lg gap-5">
               <div className="flex place-items-center md:w-1/4 gap-5">
                 <h1 className="text-sm font-[200] text-gray-200">Status</h1>
-                <StatusButton status={curr.status} />
+                <StatusButton status={curr.invoice_status} />
               </div>
               <div className="w-full hidden sm:block">
                 <DuoButtons
                   status={curr.status}
-                  paid={() => setInvoiceStatus(curr.id, "paid")}
-                  remove={() => removeInvoice(curr.id)}
+                  paid={() => setInvoiceStatus(curr.invoice_id, "paid")}
+                  remove={() => removeInvoice(curr.invoice_id)}
                   edit={() => setInvoiceOpen(true)}
                 />
               </div>
@@ -76,18 +79,18 @@ const InvoiceDetail = (props) => {
                 <div>
                   <h1 className="text-[13px] md:text-lg mb-[2px]">
                     <span className="text-[#7E88C3]">#</span>
-                    {curr.id}
+                    {curr.invoice_id}
                   </h1>
                   <p className="text-xs font-[200] text-gray-300 md:text-sm">
                     {curr.description}
                   </p>
                 </div>
                 <Address
-                  country={curr.country}
+                  country={curr.billing_country}
                   style={{ textAlign: "right" }}
-                  postalCode={curr.postalCode}
-                  billingAddress={curr.billingAddress}
-                  city={curr.city}
+                  postalCode={curr.code}
+                  billingAddress={curr.billing_address}
+                  city={curr.billing_city}
                 />
               </div>
               <div className="flex flex-col gap-5 md:flex-row md:justify-between">
@@ -95,11 +98,23 @@ const InvoiceDetail = (props) => {
                   <div className="flex flex-col gap-5 capitalize">
                     <div className="w-[120px]">
                       <p className="text-[15px] font-[100]">invoice date</p>
-                      <h1 className="text-xl">{curr.date}</h1>
+                      <h1 className="text-xl">
+                        {curr.initial_date
+                          ? new Date(curr.initial_date)
+                              .toISOString()
+                              .substring(0, 10)
+                          : ""}
+                      </h1>
                     </div>
                     <div className="mt-auto">
                       <p className="text-[15px] font-[100]">payment due</p>
-                      <h1 className="text-xl">{curr.due}</h1>
+                      <h1 className="text-xl">
+                        {curr.due_date
+                          ? new Date(curr.due_date)
+                              .toISOString()
+                              .substring(0, 10)
+                          : ""}
+                      </h1>
                     </div>
                   </div>
                   <div className="addresss flex flex-col">
@@ -109,21 +124,24 @@ const InvoiceDetail = (props) => {
                     <h1 className="text-lg font-[500]">{curr.clientName}</h1>
                     <div className="text-sm flex flex-col font-[50]">
                       <Address
-                        country={curr.country}
-                        postalCode={curr.postalCode}
-                        billingAddress={curr.billingAddress}
-                        city={curr.city}
+                        country={curr.billing_country}
+                        postalCode={curr.code}
+                        billingAddress={curr.billing_address}
+                        city={curr.billing_city}
                       />
                     </div>
                   </div>
                 </div>
                 <div className="">
                   <p className="text-[15px] font-[100] capitalize">sent to</p>
-                  <h1 className="text-lg">{curr.clientEmail}</h1>
+                  <h1 className="text-lg">{curr.client_email}</h1>
                 </div>
               </div>
               <div className="tableDiv">
-                <Table items={curr.itemList} total={curr.total} />
+                <Table
+                  items={curr.itemList}
+                  total={parseInt(curr.invoice_total)}
+                />
               </div>
             </div>
           </div>

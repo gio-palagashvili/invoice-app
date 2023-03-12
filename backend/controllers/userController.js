@@ -34,7 +34,7 @@ export const loginUser = async (req, res) => {
     delete checkUser.rows[0].password;
 
     return res.status(200).json({
-        message: "logged in", status: true, token: jwt.sign(checkUser.rows[0], process.env.JWT,
+        message: "logged in", status: true, user: jwt.sign(checkUser.rows[0], process.env.JWT,
             { "expiresIn": "120d" })
     })
 }
