@@ -115,15 +115,14 @@ const AddInvoice = (props) => {
             invoice1,
           })
           .then((data) => {
-            console.log(invoice1);
+            location.reload();
           })
           .catch((err) => {
             setError(err.message);
           });
 
-        // clearItems();
-        // setInvoices([...invoices, invoice1]);
-        // props.discard();
+        clearItems();
+        props.discard();
       } else setError("add atleast one item");
     } else setError(valid.error);
   };
