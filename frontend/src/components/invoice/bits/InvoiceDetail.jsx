@@ -10,7 +10,7 @@ import EditInvoice from "./EditInvoice";
 import axios from "axios";
 
 const InvoiceDetail = (props) => {
-  const { invoices, setInvoiceStatus, removeInvoice } = useContext(AppContext);
+  const { invoices, removeInvoice } = useContext(AppContext);
   const [curr, setCurr] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
@@ -42,7 +42,18 @@ const InvoiceDetail = (props) => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, [ref]);
-
+  const setInvoicePaid = (id) => {
+    axios
+      .patch("http://localhost:5500/invoice/set-paid", {
+        id: id,
+      })
+      .then((res) => {
+        setCurr({ ...curr, invoice_status: "paid" });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <>
       <EditInvoice
@@ -67,8 +78,8 @@ const InvoiceDetail = (props) => {
               </div>
               <div className="w-full hidden sm:block">
                 <DuoButtons
-                  status={curr.status}
-                  paid={() => setInvoiceStatus(curr.invoice_id, "paid")}
+                  status={curr.invoice_status}
+                  paid={() => setInvoicePaid(curr.invoice_id)}
                   remove={() => removeInvoice(curr.invoice_id)}
                   edit={() => setInvoiceOpen(true)}
                 />

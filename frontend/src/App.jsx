@@ -10,25 +10,6 @@ import Login from "./pages/login";
 const App = () => {
   const [invoices, setInvoices] = useState([
     // {
-    //   id: "RTX3080",
-    //   billingAddress: "8 McCullough Dr, U126363",
-    //   city: "New Castle",
-    //   postCode: "19726",
-    //   country: "United States",
-    //   description: "asl",
-    //   clientName: "Alex grim",
-    //   clientEmail: "girgi1201@gnail.com",
-    //   date: "2023-02-27",
-    //   due: "2033-01-29",
-    //   status: "paid",
-    //   net: 30,
-    //   itemList: [
-    //     { itemName: "thing", qty: 2, price: 2, itemTotalPrice: 4 },
-    //     { itemName: "no", qty: 2, price: 2, itemTotalPrice: 4 },
-    //   ],
-    //   total: 4,
-    // },
-    // {
     //   id: "ZTX2090",
     //   billingAddress: "8 McCullough Dr, U126363",
     //   city: "New Castle",
@@ -48,17 +29,6 @@ const App = () => {
     // },
   ]);
   const [user, setUser] = useState(null);
-
-  const setInvoiceStatus = (id, status) => {
-    let invoicesTemp = invoices;
-    invoicesTemp = invoicesTemp.map((invoice) => {
-      if (invoice.id == id) {
-        invoice.status = status;
-      }
-      return invoice;
-    });
-    setInvoices(invoicesTemp);
-  };
 
   const removeInvoice = (id) => {
     let newArr = invoices;
@@ -88,7 +58,6 @@ const App = () => {
       value={{
         invoices,
         setInvoices,
-        setInvoiceStatus,
         removeInvoice,
         user,
         setUser,

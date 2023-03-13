@@ -54,3 +54,13 @@ export const getInvoice = async (req, res) => {
         return res.status(400).json({ messgae: error.message, status: false });
     }
 }
+export const setPaid = async (req, res) => {
+    const id = req.body.id;
+    try {
+        const set = await db.query("UPDATE public.invoices_tbl SET invoice_status = 'paid' WHERE invoice_id = $1", [id]);
+        const mess = set.rowCount == 0 ? "updated" : "no rows were affected";
+        return res.status(200).json({ message: mess, status: true });
+    } catch (error) {
+        return res.status(400).json({ messgae: error.message, status: false });
+    }
+}
