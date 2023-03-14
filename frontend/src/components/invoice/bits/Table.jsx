@@ -20,7 +20,6 @@ const Table = (props) => {
               <td>${parseInt(item?.price)?.toFixed(2)}</td>
               <td className="text-center">
                 ${parseInt(item?.total)?.toFixed(2)}
-                {console.log(item)}
               </td>
             </tr>
           );

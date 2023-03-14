@@ -10,7 +10,7 @@ import EditInvoice from "./EditInvoice";
 import axios from "axios";
 
 const InvoiceDetail = (props) => {
-  const { invoices, removeInvoice } = useContext(AppContext);
+  const { invoices, removeInvoice, user } = useContext(AppContext);
   const [curr, setCurr] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
@@ -19,7 +19,11 @@ const InvoiceDetail = (props) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5500/invoice/${id}`)
+      .get(`http://localhost:5500/invoice/${id}`, {
+        headers: {
+          Authorization: `Bearer ${user}`,
+        },
+      })
       .then((res) => {
         setCurr(res.data.invoice);
         document.title = `Invoice - #${id}`;

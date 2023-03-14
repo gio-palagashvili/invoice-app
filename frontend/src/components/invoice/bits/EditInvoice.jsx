@@ -100,18 +100,18 @@ const EditInvoice = (props) => {
         items.map((item) => {
           total += item.itemTotalPrice;
         });
+        let invoice1 = invoice;
 
-        invoice.due_date = due_date;
-        invoice.itemList = items;
-        invoice.total = total;
-
+        invoice1.due_date = due_date;
+        invoice1.itemList = items;
+        invoice1.total = total;
+        console.log(invoice1);
         clearItems();
         let newInvoices = invoices;
-
         setInvoices(
           newInvoices.map((i, index) => {
             if (i.id == props.id) {
-              return invoice;
+              return invoice1;
             }
             return i;
           })
