@@ -15,7 +15,7 @@ const EditInvoice = (props) => {
   const [invoice, setInvoice] = useState({});
 
   useEffect(() => {
-    setInvoice(invoices.find((invoice) => invoice.id == props.id));
+    setInvoice(props.invoice);
     let s = document.getElementsByTagName("option");
     if (s.length > 0) {
       for (let i = 0; i < s.length; i++) {
@@ -160,7 +160,7 @@ const EditInvoice = (props) => {
                           errorMessage={
                             error.includes("billing address") ? error : ""
                           }
-                          value={invoice.billingAddress}
+                          value={invoice.billing_address}
                           h1="billing address"
                           change={(e) => changeHandler(e)}
                           name="billingAddress"
@@ -180,7 +180,7 @@ const EditInvoice = (props) => {
                           <div className="w-[90%] sm:w-[30%]">
                             <InputMain
                               errorMessage={error.includes("code") ? error : ""}
-                              value={invoice.postCode}
+                              value={invoice.code}
                               h1="postal code"
                               change={(e) => changeHandler(e)}
                               name="postCode"
@@ -215,7 +215,7 @@ const EditInvoice = (props) => {
                     <h1 className="text-[#7C5DFA]">Bill to</h1>
                     <div className="w-full">
                       <InputMain
-                        value={invoice.clientName}
+                        value={invoice.client_name}
                         h1="client's name"
                         change={(e) => changeHandler(e)}
                         name="clientName"
@@ -224,7 +224,7 @@ const EditInvoice = (props) => {
                     </div>
                     <div className="w-full">
                       <InputMain
-                        value={invoice.clientEmail}
+                        value={invoice.client_email}
                         h1="client's email"
                         name="clientEmail"
                         errorMessage={error.includes("email") ? error : ""}

@@ -64,7 +64,7 @@ const InvoiceDetail = (props) => {
         refr={ref}
         item={invoiceOpen}
         discard={() => setInvoiceOpen(false)}
-        id={curr.invoice_id}
+        invoice={curr}
       />
       <div className="p-3 flex w-full place-items-center justify-center md:place-items-baseline md:mt-16 mt-20 flex-col sm:flex-row">
         <div className="w-[95%] mt-5 flex flex-col gap-10 md:w-[40rem]">

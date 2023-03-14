@@ -30,7 +30,6 @@ const App = () => {
   useEffect(() => {
     let userToken = localStorage.getItem("user");
     if (userToken) {
-      console.log(userToken);
       axios
         .post(
           "http://localhost:5500/user/verify",

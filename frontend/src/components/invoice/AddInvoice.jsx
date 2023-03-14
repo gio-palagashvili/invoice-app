@@ -11,7 +11,7 @@ import axios from "axios";
 const AddInvoice = (props) => {
   var date = new Date();
   const today = date.toISOString().substring(0, 10);
-  const { invoices, setInvoices } = useContext(AppContext);
+  const { invoices, setInvoices, user } = useContext(AppContext);
 
   const [invoice, setInvoice] = useState({
     id: "#uk",
@@ -111,9 +111,17 @@ const AddInvoice = (props) => {
         invoice1.total = total;
 
         axios
-          .post("http://localhost:5500/invoice/create", {
-            invoice1,
-          })
+          .post(
+            "http://localhost:5500/invoice/create",
+            {
+              invoice1,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${user}`,
+              },
+            }
+          )
           .then((data) => {
             location.reload();
           })
