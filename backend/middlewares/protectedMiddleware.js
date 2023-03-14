@@ -6,11 +6,9 @@ export const protectedMiddleware = async (req, res, next) => {
         try {
             const token = req.header("authorization").split(" ")[1];
             const user = jwt.decode(token, process.env.JWT);
-            const { id } = req.body;
-            console.log(id)
-            const getUser = await db.query("SELECT * FROM invoices_tbl WHERE invoice_id = $1", [id]);
-            if (getUser.rowCount == 0) return res.status(404).json({ message: "Invalid token", status: false })
-            if (getUser.rows[0].user_id != user.user_id) return res.status(401).json({ message: "not authorized", status: false });
+            const getUser = await db.query("SELECT * FROM invoices_tbl WHERE invoice_id = $1", [req.body.id]);
+            if (getUser.rowCount == 0) return res.status(404).json({ message: "Invalid", status: false })
+            if (getUser.rows[0].user_id != user.user_id) return res.status(401).json({ message: "ids don't match", status: false });
             req.user = getUser.rows[0];
         } catch (error) {
             return res.status(401).json({ message: error.message, status: false });

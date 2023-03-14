@@ -38,12 +38,15 @@ const Invoices = () => {
   }, [ref]);
   useEffect(() => {
     axios
-      .get("http://localhost:5500/invoice/user")
+      .get("http://localhost:5500/invoice/user", {
+        headers: {
+          Authorization: `Bearer ${user}`,
+        },
+      })
       .then((res) => {
         setInvoices(res.data.invoices);
-      })
-      .catch((err) => {});
-  }, [user]);
+      });
+  }, []);
   return (
     <>
       <AddInvoice
@@ -56,7 +59,7 @@ const Invoices = () => {
     md:w-[80%] lg:min-w-[800px]"
       >
         <div className="flex w-full">
-          <Header count={invoices.length} />
+          <Header count={invoices?.length} />
           <div className="rigth ucapitalize ml-auto flex justify-center place-items-center gap-10">
             <div className="flex relative ml-auto">
               <FilterButton clicked={handleClick} />
@@ -65,7 +68,7 @@ const Invoices = () => {
           </div>
         </div>
         <div className="invoices w-full flex flex-col gap-3 overflow-scroll h-[70vh]">
-          {invoices.map((invoice, index) => {
+          {invoices?.map((invoice, index) => {
             if (invoice.invoice_status === filter || filter.length == 0) {
               return (
                 <motion.div

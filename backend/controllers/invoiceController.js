@@ -64,3 +64,14 @@ export const setPaid = async (req, res) => {
         return res.status(400).json({ messgae: error.message, status: false });
     }
 }
+export const deleteInvoice = async (req, res) => {
+    const id = req.body.id;
+    console.log()
+    try {
+        const set = await db.query("delete from public.invoices_tbl WHERE invoice_id = $1", [id]);
+        const mess = set.rowCount == 1 ? "updated" : "no rows were affected";
+        return res.status(200).json({ message: mess, status: true });
+    } catch (error) {
+        return res.status(400).json({ messgae: error.message, status: false });
+    }
+}

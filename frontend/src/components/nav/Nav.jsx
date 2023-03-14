@@ -3,7 +3,12 @@ import logo from "../../assets/logo.svg";
 import { AppContext } from "../context/AppContext";
 
 const Nav = (props) => {
-  const { setUser } = useContext(AppContext);
+  const { setUser, setInvoices } = useContext(AppContext);
+  const logOut = () => {
+    setUser(null);
+    setInvoices(null);
+    localStorage.removeItem("user");
+  };
   return (
     <div className="bg-[#1F2139] w-full h-[5rem] rounded-tr-xl flex lg:w-[6rem] lg:h-[100vh] lg:flex-col lg:rounded-br-3xl lg:rounded-tr-3xl fixed z-30">
       <div className="logo bg-[#7C5DFA] h-full rounded-tr-3xl rounded-br-3xl flex justify-center w-[80px] lg:flex-col lg:w-full lg:h-[90px]">
@@ -17,7 +22,7 @@ const Nav = (props) => {
         >
           <svg
             className="cursor-pointer"
-            onClick={() => setUser(null)}
+            onClick={() => logOut()}
             stroke="#5a6089"
             fill="none"
             strokeWidth="2"
