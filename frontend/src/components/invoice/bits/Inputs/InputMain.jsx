@@ -31,7 +31,12 @@ const InputMain = (props) => {
         />
       ) : (
         <input
-          type={props.name.includes("password") ? "password" : "text"}
+          type={
+            props.name.includes("password") ||
+            props.name.includes("repeatPassword")
+              ? "password"
+              : "text"
+          }
           className={
             props.errorMessage
               ? errorStyleInput

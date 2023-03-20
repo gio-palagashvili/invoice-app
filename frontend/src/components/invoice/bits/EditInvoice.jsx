@@ -8,11 +8,14 @@ import { validateInput } from "../../utils/validators";
 import { AppContext } from "../../context/AppContext";
 
 const EditInvoice = (props) => {
-  var date = new Date();
-  const today = date.toISOString().substring(0, 10);
-  const { invoices, setInvoices } = useContext(AppContext);
-
   const [invoice, setInvoice] = useState({});
+  const thing = invoice?.initial_date
+    ? invoice?.initial_date?.split("T")[0]
+    : "12-12-12";
+
+  var date = new Date(thing);
+  const today = date?.toISOString().substring(0, 10);
+  const { invoices, setInvoices } = useContext(AppContext);
 
   useEffect(() => {
     setInvoice(props.invoice);
@@ -32,7 +35,7 @@ const EditInvoice = (props) => {
   const [itemsA, setItemsA] = useState(0);
   const [error, setError] = useState("");
 
-  const addItemInput = (index) => {
+  const addItemInput = () => {
     setItemsA(itemsA + 1);
     let news = items;
     news.push({ itemName: "", qty: 0, price: 0, itemTotalPrice: 0 });
@@ -171,7 +174,7 @@ const EditInvoice = (props) => {
                           <div className="w-[90%] sm:w-[30%]">
                             <InputMain
                               errorMessage={error.includes("city") ? error : ""}
-                              value={invoice.city}
+                              value={invoice.billing_city}
                               h1="city"
                               change={(e) => changeHandler(e)}
                               name="city"
@@ -191,7 +194,7 @@ const EditInvoice = (props) => {
                               errorMessage={
                                 error.includes("country") ? error : ""
                               }
-                              value={invoice.country}
+                              value={invoice.billing_country}
                               h1="country"
                               change={(e) => changeHandler(e)}
                               name="country"
@@ -237,7 +240,7 @@ const EditInvoice = (props) => {
                           invoice date
                         </h1>
                         <input
-                          defaultValue={invoice.date}
+                          defaultValue={today}
                           onChange={(e) => changeHandler(e)}
                           name="date"
                           type="date"
@@ -273,12 +276,13 @@ const EditInvoice = (props) => {
                       <h1 className="text-2xl mb-5">Item List</h1>
                       <div className="flex flex-col">
                         {items?.map((item, index) => {
+                          console.log(item);
                           return (
                             <ItemInputs
                               key={index}
                               priceVal={item.price}
                               qtyVal={item.qty}
-                              name={item.itemName}
+                              name={item.item_name}
                               total={item.itemTotalPrice}
                               remove={() => removeItemInput(index)}
                               change={(e) => itemChangeHandler(index, e)}

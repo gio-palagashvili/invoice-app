@@ -1,18 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Home from "./pages/home";
 import Invoice from "./pages/invoice";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  redirect,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 // import protectedRoutes from "./components/utils/protectedRoutes";
 import { AppContext } from "./components/context/AppContext";
 import axios from "axios";
 import Login from "./pages/login";
 import ProtectedRoutes from "./components/utils/ProtectedRoutes";
+import Register from "./pages/register";
 
 const App = () => {
   const [invoices, setInvoices] = useState([]);
@@ -45,6 +40,8 @@ const App = () => {
         })
         .catch((error) => {
           setUser(null);
+          localStorage.removeItem("user");
+          console.log("token expired or invalid");
         });
     }
   }, []);
@@ -67,7 +64,10 @@ const App = () => {
               <Route path="/*" element={<Home />} />
             </>
           ) : (
-            <Route path="/*" element={<Login />} />
+            <>
+              <Route path="/register" element={<Register />} />
+              <Route path="/*" element={<Login />} />
+            </>
           )}
         </Routes>
       </Router>
