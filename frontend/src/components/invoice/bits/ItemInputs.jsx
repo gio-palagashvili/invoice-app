@@ -7,7 +7,7 @@ const ItemInputs = (props) => {
       <div className="w-full mt-5 sm:mt-3 sm:1/3">
         <InputMain
           h1="item name"
-          name="itemName"
+          name="item_name"
           change={props.change}
           value={props.name}
         />

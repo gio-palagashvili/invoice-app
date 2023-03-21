@@ -4,7 +4,7 @@ import InputMain from "../bits/Inputs/InputMain";
 import ItemInputs from "../bits/ItemInputs";
 import { motion, AnimatePresence } from "framer-motion";
 import FixedNavButtons from "../bits/buttons/FixedNavButtons";
-import { validateInput } from "../../utils/validators";
+import { validateEdit } from "../../utils/validators";
 import { AppContext } from "../../context/AppContext";
 
 const EditInvoice = (props) => {
@@ -70,7 +70,7 @@ const EditInvoice = (props) => {
       if (i == index) {
         item = {
           ...item,
-          itemTotalPrice: item.qty * e.target.value,
+          total: item.qty * e.target.value,
           price: e.target.value,
         };
       }
@@ -84,7 +84,7 @@ const EditInvoice = (props) => {
       if (i == index) {
         item = {
           ...item,
-          itemTotalPrice: item.price * e.target.value,
+          total: item.price * e.target.value,
           qty: e.target.value,
         };
       }
@@ -93,39 +93,29 @@ const EditInvoice = (props) => {
     setItems(itemsTemp);
   };
   const handleSubmit = () => {
-    let tm = new Date(invoice.date);
+    let tm = new Date(invoice.initial_date);
     let due_date = new Date(tm.setDate(tm.getDate() + parseInt(invoice.net)));
-    let valid = validateInput(invoice);
+    let valid = validateEdit(invoice);
 
     if (valid.status == "success") {
       if (itemsA > 0) {
         let total = 0;
         items.map((item) => {
-          total += item.itemTotalPrice;
+          total += item.total;
         });
         let invoice1 = invoice;
 
         invoice1.due_date = due_date;
         invoice1.itemList = items;
         invoice1.total = total;
-        console.log(invoice1);
-        clearItems();
-        let newInvoices = invoices;
-        setInvoices(
-          newInvoices.map((i, index) => {
-            if (i.id == props.id) {
-              return invoice1;
-            }
-            return i;
-          })
-        );
-
+        // clearItems();
+        axios.patch;
         props.discard();
       } else setError("add atleast one item");
     } else setError(valid.error);
   };
   const clearItems = () => {
-    divs = [];
+    setItems([]);
     setItemsA(0);
   };
   return (
@@ -166,7 +156,7 @@ const EditInvoice = (props) => {
                           value={invoice.billing_address}
                           h1="billing address"
                           change={(e) => changeHandler(e)}
-                          name="billingAddress"
+                          name="billing_address"
                         />
                       </div>
                       <div className="block gap-2 mt-4 sm:flex">
@@ -177,7 +167,7 @@ const EditInvoice = (props) => {
                               value={invoice.billing_city}
                               h1="city"
                               change={(e) => changeHandler(e)}
-                              name="city"
+                              name="billing_city"
                             />
                           </div>
                           <div className="w-[90%] sm:w-[30%]">
@@ -186,7 +176,7 @@ const EditInvoice = (props) => {
                               value={invoice.code}
                               h1="postal code"
                               change={(e) => changeHandler(e)}
-                              name="postCode"
+                              name="code"
                             />
                           </div>
                           <div className="hidden sm:block w-[120%] sm:w-[30%]">
@@ -197,7 +187,7 @@ const EditInvoice = (props) => {
                               value={invoice.billing_country}
                               h1="country"
                               change={(e) => changeHandler(e)}
-                              name="country"
+                              name="billing_country"
                             />
                           </div>
                         </div>
@@ -206,7 +196,7 @@ const EditInvoice = (props) => {
                             h1="country"
                             value={invoice.country}
                             change={(e) => changeHandler(e)}
-                            name="country"
+                            name="billing_country"
                             errorMessage={
                               error.includes("country") ? error : ""
                             }
@@ -221,7 +211,7 @@ const EditInvoice = (props) => {
                         value={invoice.client_name}
                         h1="client's name"
                         change={(e) => changeHandler(e)}
-                        name="clientName"
+                        name="client_name"
                         errorMessage={error.includes("name") ? error : ""}
                       />
                     </div>
@@ -229,7 +219,7 @@ const EditInvoice = (props) => {
                       <InputMain
                         value={invoice.client_email}
                         h1="client's email"
-                        name="clientEmail"
+                        name="client_email"
                         errorMessage={error.includes("email") ? error : ""}
                         change={(e) => changeHandler(e)}
                       />
@@ -242,7 +232,7 @@ const EditInvoice = (props) => {
                         <input
                           defaultValue={today}
                           onChange={(e) => changeHandler(e)}
-                          name="date"
+                          name="initial_date"
                           type="date"
                           className="bg-[#1F2139] border-[#252945] w-[100%] p-3 h-12 border-solid border-[1px] rounded-[4px]"
                         />
@@ -267,6 +257,7 @@ const EditInvoice = (props) => {
                     <div className="w-full">
                       <InputMain
                         h1="Description"
+                        value={invoice.description}
                         place="e.g Graphic Design Service"
                         change={(e) => changeHandler(e)}
                         name="description"
@@ -276,14 +267,13 @@ const EditInvoice = (props) => {
                       <h1 className="text-2xl mb-5">Item List</h1>
                       <div className="flex flex-col">
                         {items?.map((item, index) => {
-                          console.log(item);
                           return (
                             <ItemInputs
                               key={index}
                               priceVal={item.price}
                               qtyVal={item.qty}
                               name={item.item_name}
-                              total={item.itemTotalPrice}
+                              total={item.total}
                               remove={() => removeItemInput(index)}
                               change={(e) => itemChangeHandler(index, e)}
                               price={(e) => priceChange(index, e)}

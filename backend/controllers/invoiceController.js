@@ -1,12 +1,11 @@
 import db from "../config/db.js";
-import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt"
-import { validateInput, generateString } from "./utils/helpers.js";
+import { validateInput, generateString } from "../utils/helpers.js";
 
 export const createInvoice = async (req, res) => {
     try {
         let { id, billingAddress, city, country, date, due,
             net, status, clientEmail, clientName, description, total, postCode, itemList } = req.body.invoice1;
+
         let tm = new Date(date);
         due = new Date(tm.setDate(tm.getDate() + parseInt(net)))
 
@@ -66,7 +65,6 @@ export const setPaid = async (req, res) => {
 }
 export const deleteInvoice = async (req, res) => {
     const id = req.body.id;
-    console.log()
     try {
         const set = await db.query("delete from public.invoices_tbl WHERE invoice_id = $1", [id]);
         const mess = set.rowCount == 1 ? "updated" : "no rows were affected";
@@ -74,4 +72,7 @@ export const deleteInvoice = async (req, res) => {
     } catch (error) {
         return res.status(400).json({ messgae: error.message, status: false });
     }
+}
+export const updateInvoice = async (req, res) => {
+
 }

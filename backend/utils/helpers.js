@@ -35,10 +35,6 @@ export const generateString = () => {
 };
 
 export const validateInput = (invoice) => {
-    // if (invoice.status != "pending" && invoice.status != "draft" && invoice.status != "paid"){
-    // return { error: "invalid status", status: "error" }
-    // }
-
     if (!isEmpty(invoice.billingAddress)) {
         if (!containsNumbers(invoice.city) && !isEmpty(invoice.city)) {
             if (postalCode(invoice.postCode) && !isEmpty(invoice.postCode)) {
@@ -47,6 +43,31 @@ export const validateInput = (invoice) => {
                         if (
                             !isEmpty(invoice.clientName) &&
                             !containsNumbers(invoice.clientName)
+                        ) {
+                            return { error: null, status: "success" };
+                        } else return { error: "invalid name", status: "error" };
+                    } else return { error: "invalid email", status: "error" };
+                } else return { error: "invalid country", status: "error" };
+            } else return { error: "invalid code", status: "error" };
+        } else return { error: "invalid city", status: "error" };
+    } else return { error: "billing address is required", status: "error" };
+};
+
+export const validateEdit = (invoice) => {
+    if (!isEmpty(invoice.billing_address)) {
+        if (
+            !containsNumbers(invoice.billing_city) &&
+            !isEmpty(invoice.billing_city)
+        ) {
+            if (postalCode(invoice.code) && !isEmpty(invoice.code)) {
+                if (
+                    !containsNumbers(invoice.billing_country) &&
+                    !isEmpty(invoice.billing_country)
+                ) {
+                    if (!isEmpty(invoice.client_email) && isEmail(invoice.client_email)) {
+                        if (
+                            !isEmpty(invoice.client_name) &&
+                            !containsNumbers(invoice.client_name)
                         ) {
                             return { error: null, status: "success" };
                         } else return { error: "invalid name", status: "error" };

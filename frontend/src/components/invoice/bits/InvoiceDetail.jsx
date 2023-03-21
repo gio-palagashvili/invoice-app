@@ -9,7 +9,7 @@ import { AppContext } from "../../context/AppContext";
 import EditInvoice from "./EditInvoice";
 import axios from "axios";
 
-const InvoiceDetail = (props) => {
+const InvoiceDetail = () => {
   const { invoices, removeInvoice, user } = useContext(AppContext);
   const [curr, setCurr] = useState("");
   const { id } = useParams();
