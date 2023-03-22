@@ -64,15 +64,17 @@ export const setPaid = async (req, res) => {
     }
 }
 export const deleteInvoice = async (req, res) => {
-    const id = req.body.id;
+    const { id } = req.params;
     try {
-        const set = await db.query("delete from public.invoices_tbl WHERE invoice_id = $1", [id]);
-        const mess = set.rowCount == 1 ? "updated" : "no rows were affected";
+        const set = await db.query("delete from invoices_tbl WHERE invoice_id = $1 and user_id = $2", [id, req.user.user_id]);
+        const mess = set.rowCount == 1 ? "deleted" : "no rows were affected";
+
         return res.status(200).json({ message: mess, status: true });
     } catch (error) {
         return res.status(400).json({ messgae: error.message, status: false });
     }
 }
-export const updateInvoice = async (req, res) => {
-
+export const EditInvoice = async (req, res) => {
+    let { billing_address, billing_city, billing_country, client_email, client_name, code,
+        description, due_date, initial_date, invoice_id, invoice_status, invoice_total, itemList, net } = req.body;
 }

@@ -2,11 +2,9 @@ import React, { useState, useEffect } from "react";
 import Home from "./pages/home";
 import Invoice from "./pages/invoice";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-// import protectedRoutes from "./components/utils/protectedRoutes";
 import { AppContext } from "./components/context/AppContext";
 import axios from "axios";
 import Login from "./pages/login";
-import ProtectedRoutes from "./components/utils/ProtectedRoutes";
 import Register from "./pages/register";
 
 const App = () => {
@@ -14,12 +12,22 @@ const App = () => {
   const [user, setUser] = useState(null);
 
   const removeInvoice = (id) => {
-    // let newArr = invoices;
-    // newArr.splice(
-    //   invoices.findIndex((invoice) => invoice.id == id),
-    //   1
-    // );
-    // setInvoices(newArr);
+    let config = {
+      method: "delete",
+      maxBodyLength: Infinity,
+      url: `http://localhost:5500/invoice/delete/${id}`,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("user")}`,
+      },
+    };
+    axios
+      .request(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   useEffect(() => {

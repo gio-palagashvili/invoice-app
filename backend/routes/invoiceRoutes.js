@@ -1,5 +1,5 @@
 import express from "express";
-import { createInvoice, deleteInvoice, getInvoice, setPaid, userInvoices } from "../controllers/invoiceController.js";
+import { createInvoice, deleteInvoice, getInvoice, setPaid, userInvoices, EditInvoice } from "../controllers/invoiceController.js";
 import { authMiddleware } from "../middlewares/authMiddleware.js";
 import { protectedMiddleware } from "../middlewares/protectedMiddleware.js";
 
@@ -11,4 +11,5 @@ export default router
     .get("/user", authMiddleware, userInvoices)
     .get("/:id", authMiddleware, getInvoice)
     .patch("/set-paid", protectedMiddleware, setPaid)
-    .delete("/delete", protectedMiddleware, deleteInvoice)
+    .delete("/delete/:id", authMiddleware, deleteInvoice)
+    .put("/edit", protectedMiddleware, EditInvoice)

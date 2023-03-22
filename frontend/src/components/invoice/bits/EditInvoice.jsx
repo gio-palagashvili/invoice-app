@@ -108,8 +108,7 @@ const EditInvoice = (props) => {
         invoice1.due_date = due_date;
         invoice1.itemList = items;
         invoice1.total = total;
-        // clearItems();
-        axios.patch;
+        clearItems();
         props.discard();
       } else setError("add atleast one item");
     } else setError(valid.error);
