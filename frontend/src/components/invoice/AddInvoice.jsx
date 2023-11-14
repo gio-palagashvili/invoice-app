@@ -134,6 +134,7 @@ const AddInvoice = (props) => {
       } else setError("add atleast one item");
     } else setError(valid.error);
   };
+
   const draft = () => {
     invoice.status = "draft";
     clearItems();
